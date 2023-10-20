@@ -1,14 +1,22 @@
 #ifndef AED_PROJECT_STUDENTS_H
 #define AED_PROJECT_STUDENTS_H
+#include <string>
+#include <iostream>
+#include <vector>
 
-#include <string>;
 using namespace std;
+
 class Students {
 private:
     string StudentName;
-    string StudentCode;
-    vector <Class> Schedule;
-};
+    int StudentCode;
+    vector<pair<UC, Class>> UC_Class;
 
+
+public:
+    Students(string &StudentName, int StudentCode, vector & <pair<UC, Class>> UC_Class);
+    string &get_name();
+    int get_code();
+};
 
 #endif //AED_PROJECT_STUDENTS_H
