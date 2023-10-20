@@ -1,12 +1,11 @@
 #ifndef AED_PROJECT_STUDENTS_H
 #define AED_PROJECT_STUDENTS_H
 #include <string>
-#include <iostream>
 #include <vector>
 
 using namespace std;
 
-class Students {
+class Student {
 private:
     string StudentName;
     string StudentCode;
@@ -14,7 +13,7 @@ private:
 
 
 public:
-    Students(string& StudentName, string& StudentCode, vector& <pair<UC, Class>> UC_Class);
+    Student(string& StudentName, string& StudentCode, vector& <pair<UC, Class>> UC_Class);
     string get_name();
     string get_code();
 
