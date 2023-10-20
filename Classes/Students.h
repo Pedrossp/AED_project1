@@ -10,16 +10,14 @@ class Students {
 private:
     string StudentName;
     int StudentCode;
-    vector <pair<UC , Class>> UC_Class;
-
+    vector<pair<UC, Class>> UC_Class;
 
 
 public:
-    Students(string& StudentName, int StudentCode,vector& <pair<UC , Class>> UC_Class );
-    string& get_name();
+    Students(string &StudentName, int StudentCode, vector & <pair<UC, Class>> UC_Class);
+    string &get_name();
     int get_code();
-//eduu
-};
 
+};
 
 #endif //AED_PROJECT_STUDENTS_H
