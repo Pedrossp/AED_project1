@@ -7,9 +7,9 @@ using namespace std;
 
 class Student {
 private:
-    string StudentName;
-    string StudentCode;
-    vector<pair<UC, Class>> UC_Class;
+    string StudentName_;
+    string StudentCode_;
+    vector<pair<UC, Class>> UC_Class_;
 
 
 public:
