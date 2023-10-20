@@ -8,9 +8,10 @@ using namespace std;
 class UC {
 private:
     string UcCode_;
+    vector <ClassCode> ClassCode_;
 
 public:
-    UC(string UcCode);
+    UC(string UcCode, vector <ClassCode> ClassCode);
     string get_code();
 
 };
