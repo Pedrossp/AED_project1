@@ -14,9 +14,9 @@ private:
 
 
 public:
-    Students(string &StudentName, int &StudentCode, vector & <pair<UC, Class>> UC_Class);
+    Students(string &StudentName, string &StudentCode, vector &<pair<UC, Class>> UC_Class);
     string &get_name();
-    int get_code();
+    string get_code();
 
 };
 
