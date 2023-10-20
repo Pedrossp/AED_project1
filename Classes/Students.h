@@ -1,13 +1,13 @@
-//
-// Created by edu on 20-10-2023.
-//
-
 #ifndef AED_PROJECT_STUDENTS_H
 #define AED_PROJECT_STUDENTS_H
 
-
+#include <string>;
+using namespace std;
 class Students {
-
+private:
+    string StudentName;
+    string StudentCode;
+    vector <Class> Schedule;
 };
 
 
