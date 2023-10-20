@@ -19,8 +19,6 @@ public:
     string& get_name();
     int get_code();
 
-
-
 };
 
 
