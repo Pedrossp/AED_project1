@@ -1,5 +1,7 @@
 #include "Class.h"
 
+using namespace std;
+
 Class::Class(string& ClassCode, string& UcCode, string& Weekday, float& StartHour, float& Duration, string& Type) {
     ClassCode_ = ClassCode;
     UcCode_ = UcCode;
