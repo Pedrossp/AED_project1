@@ -9,11 +9,11 @@ class Student {
 private:
     string StudentName_;
     string StudentCode_;
-    vector<pair<UC, Class>> UC_Class_;
+    vector<pair<string, string>> UC_Class_;
 
 
 public:
-    Student(string& StudentName, string& StudentCode, vector& <pair<UC, Class>> UC_Class);
+    Student(string& StudentName, string& StudentCode, vector& <pair<string, string>> UC_Class);
     string get_name();
     string get_code();
 
