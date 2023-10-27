@@ -24,7 +24,7 @@ int const Student::get_code(){
     return studentCode_;
 }
 
-vector<UC_class*> Student::get_uc_classes(){
+vector<UC_Class*> const Student::get_uc_classes(){
     return uc_Classes_;
 }
 

@@ -9,20 +9,18 @@ using namespace std;
 class Lesson {
 
 private:
-    int ClassCode_;
-    int UcCode_;
     string Weekday_;
     float StartHour_;
     float Duration_;
     string Type_;
 
 public:
-    Lesson(int& ClassCode, int& UcCode, string& Weekday, float& StartHour, float& Duration, string& Type);
-    const int get_classcode();
-    const int get_uccode();
-    const string get_weekday();
-    float get_starthour();
-    float get_duration();
+    Lesson();
+    Lesson(string& Weekday, float& StartHour, float& Duration, string& Type);
+
+    string const get_weekday();
+    float const get_starthour();
+    float const get_duration();
     const string get_type();
 
 };

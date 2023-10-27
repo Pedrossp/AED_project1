@@ -22,7 +22,7 @@ public:
 
     string const get_name();
     int const get_code();
-    vector<UC_class*> get_uc_classes();
+    vector<UC_Class*> const get_uc_classes();
 
     void set_uc_class(UC_Class* uc_Classes);
 
