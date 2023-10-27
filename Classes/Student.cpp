@@ -1,19 +1,35 @@
 #include "Student.h"
-#include "UC.h"
-#include "Class.h"
+#include "UC_Class.h"
+
+#include <string>
 
 using namespace std;
 
-Student::Student(string& StudentName, string& StudentCode, vector <pair<UC, Class>>& UC_Class){
-    StudentName_ = StudentName;
-    StudentCode_ = StudentCode;
-    UC_Class_ = UC_Class;
+
+Student::Student(){
+    studentName_ = "";
+    studentCode_ = 0;
 }
 
-string Student::get_name() {
-    return StudentName_;
+Student::Student(string& studentName, int studentCode){
+    studentName_ = studentName;
+    studentCode_ = studentCode;
 }
 
-string Student::get_code() {
-    return StudentCode_;
+string const Student::get_name(){
+    return studentName_;
 }
+
+int const Student::get_code(){
+    return studentCode_;
+}
+
+vector<UC_class*> Student::get_uc_classes(){
+    return uc_Classes_;
+}
+
+void Student::set_uc_class(UC_Class* uc_Classes){
+    uc_Classes_.push_back(uc_Classes);
+}
+
+

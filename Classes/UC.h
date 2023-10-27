@@ -2,20 +2,21 @@
 #define AED_PROJECT1_UC_H
 #include <string>
 #include <vector>
-#include "Class.h"
+#include "Lesson.h"
 
 
 using namespace std;
 
 
 class UC {
+
 private:
-    string UcCode_;
-    vector<Class> ClassCode_;
+    int UcCode_;
+    vector<Lesson> ClassCode_;
 
 public:
-    UC(string UcCode, vector<Class> ClassCode);
-    string get_code();
+    UC(int UcCode, vector<Lesson> ClassCode);
+    int get_code();
 
 };
 
