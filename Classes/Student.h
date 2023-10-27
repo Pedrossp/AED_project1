@@ -13,7 +13,7 @@ private:
 
 
 public:
-    Student(string& StudentName, string& StudentCode, vector& <pair<string, string>> UC_Class);
+    Student(string& StudentName, string& StudentCode, vector <pair<string, string>>& UC_Class);
     string get_name();
     string get_code();
 

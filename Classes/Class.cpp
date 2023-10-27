@@ -11,15 +11,15 @@ Class::Class(string& ClassCode, string& UcCode, string& Weekday, float& StartHou
     Type_ = Type;
 }
 
-string Class::get_classcode() {
+const string Class::get_classcode() {
     return ClassCode_;
 }
 
-string Class::get_uccode() {
+const string Class::get_uccode() {
     return UcCode_;
 }
 
-string Class::get_weekday() {
+const string Class::get_weekday() {
     return Weekday_;
 }
 
@@ -31,6 +31,6 @@ float Class::get_duration() {
     return Duration_;
 }
 
-string Class::get_type() {
+const string Class::get_type() {
     return Type_;
 }

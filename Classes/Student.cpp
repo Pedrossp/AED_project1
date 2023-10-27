@@ -1,8 +1,10 @@
 #include "Student.h"
+#include "UC.h"
+#include "Class.h"
 
 using namespace std;
 
-Student::Student(string& StudentName, string& StudentCode, vector& <pair<UC, Class>> UC_Class){
+Student::Student(string& StudentName, string& StudentCode, vector <pair<UC, Class>>& UC_Class){
     StudentName_ = StudentName;
     StudentCode_ = StudentCode;
     UC_Class_ = UC_Class;

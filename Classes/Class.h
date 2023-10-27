@@ -9,12 +9,12 @@ using namespace std;
 class Class {
 public:
     Class(string& ClassCode, string& UcCode, string& Weekday, float& StartHour, float& Duration, string& Type);
-    string get_classcode();
-    string get_uccode();
-    string get_weekday();
+    const string get_classcode();
+    const string get_uccode();
+    const string get_weekday();
     float get_starthour();
     float get_duration();
-    string get_type();
+    const string get_type();
 
 
 private:
