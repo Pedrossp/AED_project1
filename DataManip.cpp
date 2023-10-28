@@ -45,9 +45,7 @@ void DataManip::read_classes_per_uc(string filename) {
         return; // Sair da função em caso de erro
     }
 
-
     string line, ucCode, classCode;
-
 
     getline(file, line);
     while (getline(file, line)) {
