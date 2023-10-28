@@ -38,7 +38,7 @@ void DataManip::read_classes(string filename) {
     }
 }
 
-void DataManip::read_classes_per_uc(string& filename) {
+void DataManip::read_classes_per_uc(string filename) {
     ifstream file(filename);
     if (!file.is_open()) {
         cerr << "Erro ao abrir o arquivo " << filename << endl;
@@ -50,9 +50,7 @@ void DataManip::read_classes_per_uc(string& filename) {
 
 
     getline(file, line);
-    cout<<"Hello";
     while (getline(file, line)) {
-        std::cout<<"ola";
         stringstream iss(line);
         string word;
         vector<string> words;

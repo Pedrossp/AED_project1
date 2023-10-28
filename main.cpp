@@ -9,12 +9,12 @@ using namespace std;
 
 int main() {
     DataManip data;
-    data.read_classes_per_uc("home/edu/Feup/AED/AED_PROJECT/schedule/classes_per_uc.csv"
-    );
+    data.read_classes_per_uc("../schedule/classes.csv");
     std::vector<UC_Class *> uc = data.get_uc_classes();
-    for (UC_Class *a : uc) {
-        std::cout << a->get_ucCode();
-    }
 
+    for (UC_Class *a : uc) {
+        std::cout << a->get_ucCode()<<" "<<a->get_classCode()<<"\n";
+
+    }
     return 0;
 }

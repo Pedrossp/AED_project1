@@ -19,7 +19,6 @@ public:
 
     vector<UC_Class*> get_uc_classes();
 
-    void read_classes_per_uc(string &filename);
 };
 
 
