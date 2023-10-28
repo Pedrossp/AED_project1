@@ -7,14 +7,14 @@
 
 using namespace std;
 
-int main(){
+int main() {
     DataManip data;
-    data.read_classes_per_uc("..\\csv\\clases_per_uc.csv");
-    vector<UC_Class*> uc = data.get_uc_classes();
-    for(UC_Class* a: uc){
-        cout << a;
+    data.read_classes_per_uc("home/edu/Feup/AED/AED_PROJECT/schedule/classes_per_uc.csv"
+    );
+    std::vector<UC_Class *> uc = data.get_uc_classes();
+    for (UC_Class *a : uc) {
+        std::cout << a->get_ucCode();
     }
 
     return 0;
-
 }

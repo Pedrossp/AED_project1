@@ -18,6 +18,8 @@ public:
     void read_students_classes(string filename);
 
     vector<UC_Class*> get_uc_classes();
+
+    void read_classes_per_uc(string &filename);
 };
 
 

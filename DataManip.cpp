@@ -3,11 +3,11 @@
 
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
 void DataManip::read_classes(string filename) {
-
     string line, classCode, ucCode, weekDay, type;
     double startHour, duration;
 
@@ -38,15 +38,21 @@ void DataManip::read_classes(string filename) {
     }
 }
 
-void DataManip::read_classes_per_uc(string filename) {
+void DataManip::read_classes_per_uc(string& filename) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cerr << "Erro ao abrir o arquivo " << filename << endl;
+        return; // Sair da função em caso de erro
+    }
+
 
     string line, ucCode, classCode;
 
-    ifstream file(filename);
+
     getline(file, line);
-
+    cout<<"Hello";
     while (getline(file, line)) {
-
+        std::cout<<"ola";
         stringstream iss(line);
         string word;
         vector<string> words;
