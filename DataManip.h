@@ -11,6 +11,7 @@ class DataManip {
 
 private:
     vector<UC_Class*> uc_classes_;
+    vector<Student*> students_;
 
 public:
     void read_classes(string filename);
