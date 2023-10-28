@@ -67,8 +67,8 @@ void DataManip::read_classes_per_uc(string filename) {
 }
 
 void DataManip::read_students_classes(string filename) {
-    string line, studentCode, studentName, ucCode, classCode;
-
+    string line ,studentName, ucCode, classCode;
+    int studentCode;
     ifstream file(filename);
     getline(file, filename);
 
@@ -81,7 +81,7 @@ void DataManip::read_students_classes(string filename) {
             words.push_back(word);
         }
 
-        studentCode = words[0];
+        studentCode = stof(words[0]);
         studentName = words[1];
         ucCode = words[2];
         classCode = words[3];
