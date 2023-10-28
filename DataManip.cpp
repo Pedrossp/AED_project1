@@ -71,6 +71,26 @@ void DataManip::read_classes_per_uc(string& filename) {
 }
 
 void DataManip::read_students_classes(string filename) {
+    string line, studentCode, studentName, ucCode, classCode;
+
+    ifstream file(filename);
+    getline(file, filename);
+
+    while(getline(file, line)){
+        stringstream iss(line);
+        string word;
+        vector<string>words;
+
+        while(getline(iss, word, ',')){
+            words.push_back(word);
+        }
+
+        studentCode = words[0];
+        studentName = words[1];
+        ucCode = words[2];
+        classCode = words[3];
+
+    }
 
 }
 
