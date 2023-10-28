@@ -1,5 +1,7 @@
 #include "UC_Class.h"
 
+using namespace std;
+
 UC_Class::UC_Class() {
     UcCode_ = "";
     ClassCode_ = "";

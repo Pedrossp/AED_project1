@@ -1,9 +1,10 @@
 #ifndef AED_PROJECT1_UC_CLASS_H
 #define AED_PROJECT1_UC_CLASS_H
-#include <string>
-#include <vector>
+
 #include "Lesson.h"
 
+#include <string>
+#include <vector>
 
 using namespace std;
 
