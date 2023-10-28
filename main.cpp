@@ -1,5 +1,4 @@
 #include "Classes/Lesson.h"
-#include "Classes/Lesson.cpp"
 #include "DataManip.h"
 #include "Classes/UC_Class.h"
 
