@@ -88,6 +88,8 @@ void DataManip::read_students_classes(string filename) {
         ucCode = words[2];
         classCode = words[3];
 
+        Student *student = new Student(studentName, studentCode);
+        students_.push_back(student);
     }
 
 }
