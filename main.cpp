@@ -14,6 +14,7 @@ int main(){
     for(UC_Class* a: uc){
         cout << a;
     }
+    ||ola||
 
     return 0;
 
