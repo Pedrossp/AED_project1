@@ -1,0 +1,2 @@
+ClassCode,UcCode,Weekday,StartHour,Duration,Type
+1LEIC01,L.EIC001,Monday,10.5,1.5,TP
