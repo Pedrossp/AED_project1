@@ -81,7 +81,7 @@ void DataManip::read_students_classes(string filename) {
             words.push_back(word);
         }
 
-        studentCode = stof(words[0]);
+        studentCode = stoi(words[0]);
         studentName = words[1];
         ucCode = words[2];
         classCode = words[3];
