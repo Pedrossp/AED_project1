@@ -24,6 +24,9 @@ public:
     vector<Student*> get_students();
 
     void sortStudents_bycode(vector<Student*>);
+
+    Student* found_student(int student_code);
+
 };
 
 
