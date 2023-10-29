@@ -1,7 +1,6 @@
-#include "Lesson.h"
-#include "Student.h"
-#include "UC_Class.h"
+#include "Classes/Lesson.h"
 #include "DataManip.h"
+#include "Classes/UC_Class.h"
 
 #include <iostream>
 

@@ -1,8 +1,10 @@
 #ifndef AED_PROJECT1_DATAMANIP_H
 #define AED_PROJECT1_DATAMANIP_H
 
-#include "Student.h"
+#include "Classes/Student.h"
 #include "string"
+#include "Classes/UC_Class.h"
+#include "Classes/Student.h"
 
 using namespace std;
 
