@@ -32,4 +32,3 @@ void Student::set_uc_class(UC_Class* uc_Classes){
     uc_Classes_.push_back(uc_Classes);
 }
 
-

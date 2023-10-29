@@ -23,6 +23,7 @@ public:
     vector<UC_Class*> get_uc_classes();
     vector<Student*> get_students();
 
+    void sortStudents_bycode(vector<Student*>);
 };
 
 

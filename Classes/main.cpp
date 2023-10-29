@@ -1,18 +1,22 @@
 #include "Classes/Lesson.h"
 #include "DataManip.h"
 #include "Classes/UC_Class.h"
-
+#include "Student.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 int main() {
     DataManip data;
     data.read_classes_per_uc("../schedule/classes.csv");
-    std::vector<UC_Class *> uc = data.get_uc_classes();
+    data.read_students_classes("../schedule/students_classes.csv");
+    vector<UC_Class *> uc = data.get_uc_classes();
+    vector<Student*> students= data.get_students();
 
-    for (UC_Class *a : uc) {
-        std::cout << a->get_ucCode()<<" "<<a->get_classCode()<<"\n";
+    for (Student *a : students) {
+
+        std::cout <<a->get_code()<<"\n";
 
     }
     return 0;

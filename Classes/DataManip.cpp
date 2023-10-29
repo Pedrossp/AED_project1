@@ -4,8 +4,15 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
+
+void DataManip::sortStudents_bycode(vector<Student *>) {
+    sort(students_.begin(), students_.end(), [](Student* student1, Student* student2) {
+        return student1->get_code() < student2->get_code();
+    });
+}
 
 vector<UC_Class*> DataManip::get_uc_classes(){
     return uc_classes_;
@@ -89,14 +96,17 @@ void DataManip::read_students_classes(string filename) {
             words.push_back(word);
         }
 
-        studentCode = stof(words[0]);
+        studentCode = stoi(words[0]);
         studentName = words[1];
         ucCode = words[2];
         classCode = words[3];
 
         Student *student = new Student(studentName, studentCode);
         students_.push_back(student);
-    }
 
+    }
+    sortStudents_bycode(students_);
 }
+
+
 
