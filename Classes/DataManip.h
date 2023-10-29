@@ -21,6 +21,7 @@ public:
     void read_students_classes(string filename);
 
     vector<UC_Class*> get_uc_classes();
+    vector<Student*> get_students();
 
 };
 

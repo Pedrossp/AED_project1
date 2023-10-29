@@ -7,6 +7,14 @@
 
 using namespace std;
 
+vector<UC_Class*> DataManip::get_uc_classes(){
+    return uc_classes_;
+}
+
+vector<Student *> DataManip::get_students() {
+    return students_;
+}
+
 void DataManip::read_classes(string filename) {
     string line, classCode, ucCode, weekDay, type;
     double startHour, duration;
@@ -92,6 +100,3 @@ void DataManip::read_students_classes(string filename) {
 
 }
 
-vector<UC_Class*> DataManip::get_uc_classes(){
-    return uc_classes_;
-}
