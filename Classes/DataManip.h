@@ -27,6 +27,8 @@ public:
 
     Student* found_student(int student_code);
 
+    UC_Class *found_ucclass(UC_Class *ucClass);
+
 };
 
 

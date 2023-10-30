@@ -15,13 +15,15 @@ int main() {
     vector<UC_Class *> uc = data.get_uc_classes();
     vector<Student*> students= data.get_students();
 
-    for (Student *a : students) {
+    for (UC_Class*a : uc) {
 
-        std::cout <<a->get_code()<<"\n";
+        std::cout<<a->get_ucCode() <<" "<<a->get_classCode()<<"\n";
 
     }
-
-    Student *x = data.found_student(202025487);
-    cout << x->get_code();
+    UC_Class* y = new UC_Class("L.EIC001","1LEIC20");
+    UC_Class *x = data.found_ucclass(y);
+    cout<< x-> get_ucCode() <<" " <<x->get_classCode();
+    //Student *x = data.found_student(202025487);
+    //cout << x->get_code();
     return 0;
 }
