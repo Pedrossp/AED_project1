@@ -11,12 +11,12 @@ Test::Test() {
 }
 void Test::test1() {
     DataManip data;
-    data.read_classes_per_uc("../schedule/classes.csv");
+    data.read_classes_per_uc("../schedule/classes_per_uc.csv");
     vector<UC_Class *> uc = data.get_uc_classes();
 
     for (UC_Class*a : uc) {
 
-        std::cout<<a->get_ucCode() <<" "<<a->get_classCode()<<"\n";
+        cout<<a->get_ucCode() <<" " <<a->get_classCode()<<"\n";
 
     }
 }

@@ -21,7 +21,7 @@ void DataManip::sortStudents_bycode(vector<Student *>) {
         return student1->get_code() < student2->get_code();
     });
 }
-UC_Class *DataManip::found_ucclass(UC_Class *ucClass){
+UC_Class *DataManip::found_ucclass(string uc_code, string class_code){
     int size = uc_classes_.size();
     int low =0;
     int high =size -1;
@@ -29,12 +29,12 @@ UC_Class *DataManip::found_ucclass(UC_Class *ucClass){
     while (low <= high){
         int mid = low + (high - low) / 2;
 
-        if(uc_classes_[mid]->get_classCode() == ucClass->get_classCode() && uc_classes_[mid]->get_ucCode() == ucClass->get_ucCode() ){
+        if(uc_classes_[mid]->get_classCode() == class_code && uc_classes_[mid]->get_ucCode() == uc_code){
             return uc_classes_[mid];
         }
-        else if (uc_classes_[mid]->get_ucCode() < ucClass->get_ucCode() ||
-                 (uc_classes_[mid]->get_ucCode() == ucClass->get_ucCode() &&
-                  uc_classes_[mid]->get_classCode() < ucClass->get_classCode())){
+        else if (uc_classes_[mid]->get_ucCode() < uc_code ||
+                 (uc_classes_[mid]->get_ucCode() == uc_code &&
+                  uc_classes_[mid]->get_classCode() < class_code)){
             low = mid + 1;
         }
         else{
@@ -68,26 +68,28 @@ Student *DataManip::found_student(int student_code) {
 }
 
 void DataManip::read_classes_per_uc(string filename) {
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cerr << "Erro ao abrir o arquivo " << filename << endl;
-        return; // Sair da função em caso de erro
-    }
 
     string line, ucCode, classCode;
 
+    ifstream file(filename);
     getline(file, line);
+
     while (getline(file, line)) {
+
+        replace(line.begin(), line.end(), ',', ' ');
+
         stringstream iss(line);
         string word;
         vector<string> words;
 
-        while (getline(iss, word, ',')) {
+        while (iss >> word){
             words.push_back(word);
+
         }
 
-        classCode = words[0];
-        ucCode = words[1];
+        ucCode = words[0];
+        classCode = words[1];
+
 
         UC_Class *uc = new UC_Class(ucCode, classCode);
         uc_classes_.push_back(uc);
@@ -97,7 +99,7 @@ void DataManip::read_classes_per_uc(string filename) {
 
 void DataManip::read_classes(string filename) {
     string line, classCode, ucCode, weekDay, type;
-    double startHour, duration;
+    float startHour, duration;
 
 
     ifstream file(filename);
@@ -105,11 +107,14 @@ void DataManip::read_classes(string filename) {
 
     while(getline(file, line)){
 
+        replace(line.begin(), line.end(), ',', ' ');
+
         stringstream iss(line);
         string word;
         vector<string> words;
 
-        while(getline(iss, word, ',')){
+        while(iss >> word){
+
             words.push_back(word);
         }
 
@@ -121,10 +126,13 @@ void DataManip::read_classes(string filename) {
         type = words[5];
         words.clear();
 
+        UC_Class *uccl = found_ucclass(ucCode,classCode);
+        Lesson *ls = new Lesson(weekDay, startHour, duration, type);
+        uccl->set_lessons(ls);
 
-            //por acabar
-    }
+        }
 }
+
 
 void DataManip::read_students_classes(string filename) {
     string line ,studentName, ucCode, classCode;
@@ -133,11 +141,15 @@ void DataManip::read_students_classes(string filename) {
     getline(file, filename);
 
     while(getline(file, line)){
+
+        replace(line.begin(), line.end(), ',', ' ');
+
         stringstream iss(line);
         string word;
         vector<string>words;
 
-        while(getline(iss, word, ',')){
+
+        while(iss >> word){
             words.push_back(word);
         }
 
@@ -145,6 +157,8 @@ void DataManip::read_students_classes(string filename) {
         studentName = words[1];
         ucCode = words[2];
         classCode = words[3];
+        words.clear();
+
         // wait-------------------------------------------------------
 
         Student *test = found_student(studentCode);
