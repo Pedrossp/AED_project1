@@ -10,16 +10,21 @@
 using namespace std;
 
 int main() {
-
+    /*
     Test *test = new Test();
     test->test_read_student_classes();
+    */
 
 
-    return 0;
-}
     /*
     Test *test = new Test();
     test->test1();
+     */
+
+
+    Test *test = new Test();
+    test->test_read_classes();
+
     return 0;
 }
-     */
+
