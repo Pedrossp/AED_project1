@@ -1,18 +1,18 @@
-//
-// Created by edu on 30-10-2023.
-//
-
 #include <iostream>
+#include <list>
+
 #include "Test.h"
 #include "DataManip.h"
+#include "Consulting.h"
+#include "Lesson.h"
 
-Test::Test() {
-    x_= 0;
+Test::Test(DataManip data){
+    data_ = data;
 }
+
 void Test::test1() {
-    DataManip data;
-    data.read_classes_per_uc("../schedule/classes_per_uc.csv");
-    vector<UC_Class *> uc = data.get_uc_classes();
+
+    vector<UC_Class *> uc = data_.get_uc_classes();
 
     for (UC_Class*a : uc) {
 
@@ -22,12 +22,8 @@ void Test::test1() {
 }
 
 void Test::test_read_student_classes() {
-    DataManip data;
-    data.read_classes_per_uc("../schedule/classes_per_uc.csv");
-    data.read_classes("../schedule/classes.csv");
-    data.read_students_classes("../schedule/students_classes.csv");
 
-    vector<Student *> students =data.get_students();
+    vector<Student *> students =data_.get_students();
 
     for(Student *student: students){
 
@@ -43,11 +39,8 @@ void Test::test_read_student_classes() {
 }
 
 void Test::test_read_classes() {
-    DataManip data;
-    data.read_classes_per_uc("../schedule/classes_per_uc.csv");
-    data.read_classes("../schedule/classes.csv");
 
-    vector<UC_Class *> uc_classes =data.get_uc_classes();
+    vector<UC_Class *> uc_classes =data_.get_uc_classes();
 
     for(UC_Class * ucClass: uc_classes){
 
@@ -57,7 +50,31 @@ void Test::test_read_classes() {
 
         for(Lesson *lesson: lessons){
 
-            cout << lesson->get_weekday() << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_duration() << "\n";
+            cout << lesson->get_weekday() << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() << "\n";
         }
+    }
+}
+
+void Test::test_consultStudentSchedule() {
+
+    Consulting *consult = new Consulting(data_);
+
+    int student_code = 202053367;
+
+    list<Lesson *> lessons = consult->consultStudentSchedule(student_code);
+
+    for(Lesson *lesson: lessons){
+
+        cout <<lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() << "\n";
+    }
+}
+
+void Test::test_xx() {
+
+    vector<Lesson*> lessons = data_.xx("1LEIC01");
+
+    for(Lesson *lesson: lessons){
+
+        cout <<lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() <<"\n";
     }
 }

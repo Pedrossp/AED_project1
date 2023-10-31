@@ -1,20 +1,21 @@
-//
-// Created by edu on 30-10-2023.
-//
-
 #ifndef AED_PROJECT1_TEST_H
 #define AED_PROJECT1_TEST_H
 
+#include "DataManip.h"
 
 class Test {
 
 private:
-    int x_;
+    DataManip data_;
+
 public:
+    Test(DataManip data);
+
     void test1();
     void test_read_classes();
     void test_read_student_classes();
-    Test();
+    void test_consultStudentSchedule();
+    void test_xx();
 };
 
 

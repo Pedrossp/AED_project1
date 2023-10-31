@@ -28,6 +28,10 @@ float const Lesson::get_duration() {
     return Duration_;
 }
 
+const float Lesson::get_endhour() {
+    return StartHour_ + Duration_;
+}
+
 string const Lesson::get_type() {
     return Type_;
 }

@@ -21,6 +21,7 @@ public:
     string const get_weekday();
     float const get_starthour();
     float const get_duration();
+    float const get_endhour();
     const string get_type();
 
 };

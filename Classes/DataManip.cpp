@@ -183,5 +183,21 @@ void DataManip::read_students_classes(string filename) {
     }
 }
 
+vector<Lesson *> DataManip::xx(std::string class_code) {    //para retornar a uc podemos, na funçao, retornar um pair com dois vectores(lessons e uc)
+
+    vector<Lesson *> lessons;
+
+    for(UC_Class *ucClass: uc_classes_){
+
+        if(ucClass->get_classCode()==class_code){
+
+            for(Lesson *lesson: ucClass->get_lessons()){
+                lessons.push_back(lesson);
+            }
+        }
+    }
+    return lessons;
+}
+
 
 
