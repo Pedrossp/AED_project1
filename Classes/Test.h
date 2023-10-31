@@ -12,6 +12,7 @@ private:
     int x_;
 public:
     void test1();
+    void test_read_student_classes();
     Test();
 };
 

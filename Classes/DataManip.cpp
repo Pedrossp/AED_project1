@@ -54,6 +54,7 @@ Student *DataManip::found_student(int student_code) {
 
         if(students_[mid]->get_code() == student_code){
             return students_[mid];
+
         }
         else if (students_[mid]->get_code() < student_code){
             low = mid + 1;
@@ -98,6 +99,7 @@ void DataManip::read_classes_per_uc(string filename) {
 }
 
 void DataManip::read_classes(string filename) {
+
     string line, classCode, ucCode, weekDay, type;
     float startHour, duration;
 
@@ -135,47 +137,50 @@ void DataManip::read_classes(string filename) {
 
 
 void DataManip::read_students_classes(string filename) {
+
     string line ,studentName, ucCode, classCode;
     int studentCode;
+    vector<string>words;
+
     ifstream file(filename);
-    getline(file, filename);
+    getline(file, line);
 
     while(getline(file, line)){
 
-        replace(line.begin(), line.end(), ',', ' ');
 
         stringstream iss(line);
         string word;
-        vector<string>words;
 
-
-        while(iss >> word){
+        while(getline(iss, word, ',')){
             words.push_back(word);
         }
+
+        iss >> word;
+        // Remover espaços em branco ao final da palavra
+        word.erase(std::remove_if(word.begin(), word.end(), ::isspace), word.end());
+        words.push_back(word);
 
         studentCode = stoi(words[0]);
         studentName = words[1];
         ucCode = words[2];
-        classCode = words[3];
+        classCode = words[4];
         words.clear();
 
-        // wait-------------------------------------------------------
 
-        Student *test = found_student(studentCode);
 
-        if (test->get_code() == -1){
-            UC_Class *uc_class = new UC_Class(ucCode, classCode);
+        Student *stdt = found_student(studentCode);
+
+        if (stdt->get_code() == -1){
+            Student *student = new Student(studentName, studentCode);
+            student->set_uc_class(found_ucclass(ucCode,classCode));
+            students_.push_back(student);
+            sortStudents_bycode(students_);
 
         }
-
-        //wait--------------------------------------------------------
-        Student *student = new Student(studentName, studentCode);
-        students_.push_back(student);
-
-        //por acabar
-
+        else{
+            stdt->set_uc_class(found_ucclass(ucCode,classCode));
+        }
     }
-    sortStudents_bycode(students_);
 }
 
 

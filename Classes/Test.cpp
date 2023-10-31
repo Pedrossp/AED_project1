@@ -20,3 +20,25 @@ void Test::test1() {
 
     }
 }
+
+void Test::test_read_student_classes() {
+    DataManip data;
+    data.read_classes_per_uc("../schedule/classes_per_uc.csv");
+    data.read_classes("../schedule/classes.csv");
+    data.read_students_classes("../schedule/students_classes.csv");
+
+    vector<Student *> students =data.get_students();
+
+
+    for(Student *student: students){
+
+        cout << student->get_name() << ": "<< student->get_code() << "\n";
+
+        vector<UC_Class *> uccs = student->get_uc_classes();
+
+        for(UC_Class *ucc: uccs){
+
+            cout << ucc->get_classCode() << ", " << ucc->get_ucCode() << "\n";
+        }
+    }
+}
