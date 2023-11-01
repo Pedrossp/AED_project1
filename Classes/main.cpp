@@ -11,13 +11,13 @@
 using namespace std;
 
 int main() {
-
+    /*
     DataManip data;
     data.read_classes_per_uc("../schedule/classes_per_uc.csv");
     data.read_classes("../schedule/classes.csv");
     data.read_students_classes("../schedule/students_classes.csv");
     Test *test = new Test(data);
-
+    */
 
     //test->test_read_student_classes();
 
@@ -39,11 +39,11 @@ int main() {
 
     //test->test_consultClassOcupation();
 
-    test->test_consultMaxUc();
+    //test->test_consultMaxUc();
 
-    //DataManip data;
-    //Menu menu(data);
-    //menu.run();
+    DataManip data;
+    Menu menu(data);
+    menu.run();
 
     return 0;
 }
