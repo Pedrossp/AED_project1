@@ -6,6 +6,7 @@
 #define AED_PROJECT1_CONSULTING_H
 
 #include <list>
+#include <map>
 #include "Student.h"
 #include "DataManip.h"
 
@@ -25,7 +26,10 @@ public:
     list<Student*> consultStudentClass(string class_code);
 
     int consultStudentsEnrolled(int n);
-    int consultClassOcupation(string class_code);
+
+    string consultMaxUc();
+
+    map<string, int> consultClassOcupation(string class_code);
 };
 
 

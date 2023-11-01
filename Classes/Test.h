@@ -20,6 +20,8 @@ public:
     void test_consultStudentUc();
     void test_consultStudentYear();
     void test_consultStudentsEnrolled();
+    void test_consultClassOcupation();
+    void test_consultMaxUc();
 };
 
 

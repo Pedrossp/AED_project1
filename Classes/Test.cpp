@@ -130,3 +130,21 @@ void Test::test_consultStudentsEnrolled() {
     cout << result;
 }
 
+void Test::test_consultClassOcupation() {
+
+    Consulting *consult = new Consulting(data_);
+    map<string, int> uc_number = consult->consultClassOcupation("1LEIC05");
+
+    for (const auto& par : uc_number){
+
+        cout << par.first << ": "<< par.second << "\n";
+    }
+}
+
+void Test::test_consultMaxUc() {
+    Consulting *consult = new Consulting(data_);
+    string result = consult->consultMaxUc();
+
+    cout << result;
+}
+

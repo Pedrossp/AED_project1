@@ -148,8 +148,50 @@ int Consulting::consultStudentsEnrolled(int n) {
     return result;
 }
 
-int Consulting::consultClassOcupation(string class_code) {
+map<string, int> Consulting::consultClassOcupation(string class_code) {
 
     vector<Student *> students = data_.get_students();
-    int result = 0; // por acabar.......
+    map<string, int> consult;
+
+    for (Student *student: students){
+
+        vector<UC_Class *> uc_classes = student->get_uc_classes();
+
+        for (UC_Class *uc_class: uc_classes){
+
+            if(uc_class->get_classCode() == class_code){
+                consult[uc_class->get_ucCode()]++;
+            }
+        }
+    }
+    return consult;
+}
+
+string Consulting::consultMaxUc() {
+
+    vector<Student *> students = data_.get_students();
+    map<string, int> consult;
+
+    for (Student *student: students){
+
+        vector<UC_Class *> uc_classes = student->get_uc_classes();
+
+        for (UC_Class *uc_class: uc_classes){
+
+            consult[uc_class->get_ucCode()]++;
+        }
+    }
+    int max = 0;
+    string max_uc = "";
+
+    for (const auto& par : consult){
+
+        if(par.second > max){
+
+            max = par.second;
+            max_uc = par.first;
+        }
+    }
+
+    return max_uc;
 }
