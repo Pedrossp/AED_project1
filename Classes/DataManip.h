@@ -17,6 +17,7 @@ private:
     vector<Student*> students_;
 
 public:
+
     void read_classes(string filename);
     void read_classes_per_uc(string filename);
     void read_students_classes(string filename);
@@ -28,8 +29,6 @@ public:
 
     Student* found_student(int student_code);
     UC_Class* found_ucclass(string uc_code, string class_code);
-
-    vector<Lesson*> xx(string class_code);      //mudar nome
 
 };
 

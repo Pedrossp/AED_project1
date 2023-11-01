@@ -39,8 +39,11 @@ int main() {
     */
 
 
+
     Test *test = new Test(data);
-    test->test_xx();
+    test->test_consultClassSchedule();
+
+
 
     return 0;
 }

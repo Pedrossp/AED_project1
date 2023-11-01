@@ -15,7 +15,7 @@ public:
     void test_read_classes();
     void test_read_student_classes();
     void test_consultStudentSchedule();
-    void test_xx();
+    void test_consultClassSchedule();
 };
 
 

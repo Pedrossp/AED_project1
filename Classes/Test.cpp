@@ -59,22 +59,32 @@ void Test::test_consultStudentSchedule() {
 
     Consulting *consult = new Consulting(data_);
 
-    int student_code = 202053367;
+    int student_code = 202031607;
 
-    list<Lesson *> lessons = consult->consultStudentSchedule(student_code);
+    vector<pair<vector<Lesson *>, pair<string, string>>> lessons_uc = consult->consultStudentSchedule(student_code);
 
-    for(Lesson *lesson: lessons){
+    for(pair<vector<Lesson *>, pair<string, string>> lessons: lessons_uc){
 
-        cout <<lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() << "\n";
+        pair<string, string> pair = lessons.second;
+        for(Lesson *lesson: lessons.first){
+
+            cout <<lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() << " " << pair.first << " " << pair.second <<"\n";
+        }
     }
+
 }
 
-void Test::test_xx() {
+void Test::test_consultClassSchedule() {
+    Consulting *consult = new Consulting(data_);
+    vector<pair<vector<Lesson *>, pair<string, string>>> lessons_uc =consult->consultClassSchedule("1LEIC01");
 
-    vector<Lesson*> lessons = data_.xx("1LEIC01");
 
-    for(Lesson *lesson: lessons){
+    for(pair<vector<Lesson *>, pair<string, string>> lessons: lessons_uc){
 
-        cout <<lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() <<"\n";
+        pair<string, string> pair = lessons.second;
+        for(Lesson *lesson: lessons.first){
+
+            cout <<lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() << " " << pair.first << " " << pair.second <<"\n";
+        }
     }
 }
