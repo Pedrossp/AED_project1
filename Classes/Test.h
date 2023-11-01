@@ -16,6 +16,10 @@ public:
     void test_read_student_classes();
     void test_consultStudentSchedule();
     void test_consultClassSchedule();
+    void test_consultStudentClass();
+    void test_consultStudentUc();
+    void test_consultStudentYear();
+    void test_consultStudentsEnrolled();
 };
 
 

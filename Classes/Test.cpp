@@ -88,3 +88,45 @@ void Test::test_consultClassSchedule() {
         }
     }
 }
+
+void Test::test_consultStudentClass() {
+
+    Consulting *consult = new Consulting(data_);
+    list<Student *> students = consult->consultStudentClass("1LEIC05");
+
+    for (Student *student: students){
+
+        cout << student->get_name() << ": "<< student->get_code() << "\n";
+    }
+}
+
+void Test::test_consultStudentUc() {
+
+    Consulting *consult = new Consulting(data_);
+    list<Student *> students = consult->consultStudentClass("1LEIC05");
+
+    for (Student *student: students){
+
+        cout << student->get_name() << ": "<< student->get_code() << "\n";
+    }
+}
+
+void Test::test_consultStudentYear() {
+
+    Consulting *consult = new Consulting(data_);
+    list<Student *> students = consult->consultStudentYear('1');
+
+    for (Student *student: students){
+
+        cout << student->get_name() << ": "<< student->get_code() << "\n";
+    }
+}
+
+void Test::test_consultStudentsEnrolled() {
+
+    Consulting *consult = new Consulting(data_);
+    int result = consult->consultStudentsEnrolled(1);
+
+    cout << result;
+}
+
