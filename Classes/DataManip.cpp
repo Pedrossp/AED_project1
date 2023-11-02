@@ -226,6 +226,26 @@ bool DataManip::switch_class(int student_code, UC_Class uc_class) { //fazerrrrr
 
 
 
+void DataManip::fileWriter(string filename)const{
+    ofstream out(filename);
 
+    if (out.is_open()){
+        out << "StudentCode,StudentName,UcCode,ClassCode" <<endl;
 
+        for(Student *student: students_){
+
+            vector<UC_Class*> uc_classes = student->get_uc_classes();
+
+            for (UC_Class *ucClass: uc_classes){
+
+                out << student->get_code() << "," << student->get_name() << "," << ucClass->get_ucCode() << "," << ucClass->get_classCode() << endl;
+
+            }
+        }
+    }
+    else {
+        cout << "file not found" <<endl;
+    }
+
+}
 

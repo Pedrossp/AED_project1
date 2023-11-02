@@ -44,6 +44,7 @@ public:
     bool join_new_ucClass(int student_code, UC_Class uc_class);
     void leave_ucClass(int student_code, UC_Class uc_class);
 
+    void fileWriter(string filename)const;
 };
 
 

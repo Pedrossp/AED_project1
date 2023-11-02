@@ -13,7 +13,7 @@ int Menu::OptionsMenu() {
             << "1 Consult Timetables" << endl
             << "2 Consult Students"<< endl
             << "3 Submit a request" << endl
-            << "4 Print pending requests" << endl
+            << "4 Show pending requests" << endl
             << "5 Process requests" << endl
             << "6 Exit" << endl << "\n"
             << "What would you like to do next? " ;
@@ -43,7 +43,14 @@ void Menu::run() {
                 StudentsMenu();
                 break;
             }
-            
+            case 3: {
+                RequestMenu();
+                break;
+            }
+            case 6 : {
+                exitProgram();
+            }
+
         }
     }
 
@@ -76,6 +83,15 @@ void Menu::TimetablesMenu() {
 
 void Menu::StudentsMenu() {
     cout   << endl << "========= Students Menu =========-" << endl <<"\n";
+
+}
+
+void Menu::RequestMenu() {
+    cout   << endl << "========= Request Menu =========-" << endl <<"\n"
+    << "1 Change class " << endl
+    << "2 "<< endl <<"\n"
+    << "3 Cancel uc  "<< endl <<"\n"
+    << "What would you like to do next? " ;
 
 }
 
@@ -132,3 +148,9 @@ void Menu::wait() {
 
 
 
+void Menu::exitProgram() const {
+    cout << endl << "Saving changes..." << endl;
+    data_.fileWriter("../schedule/students_classes_updated.csv");
+    cout << endl << "Exiting program..." << endl;
+    exit(0);
+}
