@@ -1,5 +1,6 @@
 #include "DataManip.h"
 #include "Student.h"
+#include "Request.h"
 
 #include <fstream>
 #include <sstream>
@@ -17,11 +18,20 @@ vector<Student *> DataManip::get_students() {
     return students_;
 }
 
+queue<Request *> DataManip::get_pendent_requests() {
+    return pendent_requests_;
+}
+
+queue<Request *> DataManip::get_denied_request() {
+    return denied_requests_;
+}
+
 void DataManip::sortStudents_bycode(vector<Student *>) {
     sort(students_.begin(), students_.end(), [](Student* student1, Student* student2) {
         return student1->get_code() < student2->get_code();
     });
 }
+
 UC_Class *DataManip::found_ucclass(string uc_code, string class_code){
     int size = uc_classes_.size();
     int low =0;
@@ -182,6 +192,36 @@ void DataManip::read_students_classes(string filename) {
             stdt->set_uc_class(found_ucclass(ucCode,classCode));
         }
     }
+}
+
+void DataManip::set_pendent_requests(Request* request) {
+
+    pendent_requests_.push(request);
+}
+
+void DataManip::set_denied_request(Request* request) {
+    denied_requests_.push(request);
+}
+
+void DataManip::leave_ucClass(int student_code, UC_Class uc_class) {//fazerrrrrrrr
+    int n= student_code;
+    Student *student1 = found_student(n);
+    vector<UC_Class *> ucClasses;
+
+    for (UC_Class *ucClass: ucClasses){
+
+        if (ucClass->get_ucCode() == uc_class.get_ucCode() && ucClass->get_classCode() == uc_class.get_classCode()){
+            student1->rem(ucClass);
+        }
+    }
+}
+
+bool DataManip::join_new_ucClass(int student_code, UC_Class uc_class) {  //fazerrrrrrr
+    return false;
+}
+
+bool DataManip::switch_class(int student_code, UC_Class uc_class) { //fazerrrrr
+    return false;
 }
 
 

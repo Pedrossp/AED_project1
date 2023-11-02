@@ -24,6 +24,8 @@ public:
     int const get_code();
     vector<UC_Class*> const get_uc_classes();
 
+    void rem(UC_Class* uc_class);
+
     void set_uc_class(UC_Class* uc_Classes);
 
 };
