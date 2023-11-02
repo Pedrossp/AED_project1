@@ -216,7 +216,7 @@ void DataManip::leave_ucClass(int student_code, UC_Class uc_class) {//fazerrrrrr
     }
 }
 //test--------------------------------------------------------------------------------
-bool DataManip::join_new_ucClass(int student_code, UC_Class uc_class) {  //fazerrrrrrr
+bool DataManip::join_new_ucClass(int student_code, UC_Class *uc_class) {  //fazerrrrrrr
 
     Student *student = found_student(student_code);
     int i = consultClasss_UcOcupation(uc_class);
@@ -259,7 +259,7 @@ void DataManip::fileWriter(string filename)const{
 }
 
 //test-------------------------------------------------------------------------------------
-int DataManip::consultClasss_UcOcupation(UC_Class ucClass) {
+int DataManip::consultClasss_UcOcupation(UC_Class *ucClass) {
 
     vector<Student *> students = students_;
     int count = 0;
@@ -270,7 +270,7 @@ int DataManip::consultClasss_UcOcupation(UC_Class ucClass) {
 
         for (UC_Class *uc_class: uc_classes){
 
-            if(uc_class->get_classCode() == ucClass.get_classCode() && uc_class->get_ucCode() == ucClass.get_ucCode()){
+            if(uc_class->get_classCode() == ucClass->get_classCode() && uc_class->get_ucCode() == ucClass->get_ucCode()){
                 count++;
 
             }

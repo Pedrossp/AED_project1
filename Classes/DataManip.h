@@ -41,13 +41,13 @@ public:
     void set_denied_request(Request* request);
 
     bool switch_class(int student_code, UC_Class uc_class);        //mudar par (String class_code, String uc_code)
-    bool join_new_ucClass(int student_code, UC_Class uc_class);     //mudar par (String class_code, String uc_code)
+    bool join_new_ucClass(int student_code, UC_Class *uc_class);     //mudar par (String class_code, String uc_code)
     void leave_ucClass(int student_code, UC_Class uc_class);        //mudar par (String class_code, String uc_code)
 
     void fileWriter(string filename)const;
 
     //test--------------------------------------------------------------------------------
-    int consultClasss_UcOcupation(UC_Class ucClass);
+    int consultClasss_UcOcupation(UC_Class *ucClass);
     //test--------------------------------------------------------------------------------
 };
 
