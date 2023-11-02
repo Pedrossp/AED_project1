@@ -215,11 +215,20 @@ void DataManip::leave_ucClass(int student_code, UC_Class uc_class) {//fazerrrrrr
         }
     }
 }
-
+//test--------------------------------------------------------------------------------
 bool DataManip::join_new_ucClass(int student_code, UC_Class uc_class) {  //fazerrrrrrr
-    return false;
-}
 
+    Student *student = found_student(student_code);
+    int i = consultClasss_UcOcupation(uc_class);
+
+    if ( i == 26){
+        return false;
+    }
+
+    student->set_uc_class(uc_class);
+    return true;
+}
+//test--------------------------------------------------------------------------------
 bool DataManip::switch_class(int student_code, UC_Class uc_class) { //fazerrrrr
     return false;
 }
@@ -248,4 +257,25 @@ void DataManip::fileWriter(string filename)const{
     }
 
 }
+
+//test-------------------------------------------------------------------------------------
+int DataManip::consultClasss_UcOcupation(UC_Class ucClass) {
+
+    vector<Student *> students = students_;
+    int count = 0;
+
+    for (Student *student: students){
+
+        vector<UC_Class *> uc_classes = student->get_uc_classes();
+
+        for (UC_Class *uc_class: uc_classes){
+
+            if(uc_class->get_classCode() == ucClass.get_classCode() && uc_class->get_ucCode() == ucClass.get_ucCode()){
+                count++;
+
+            }
+        }
+    }
+}
+//test---------------------------------------------------------------------------------------
 
