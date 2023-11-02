@@ -5,6 +5,7 @@
 #include "DataManip.h"
 #include "Consulting.h"
 #include "Lesson.h"
+#include "Menu.h"
 
 Test::Test(DataManip data){
     data_ = data;
@@ -146,5 +147,13 @@ void Test::test_consultMaxUc() {
     string result = consult->consultMaxUc();
 
     cout << result;
+}
+
+void Test::test_leave_ucClass() {
+    UC_Class *ucClass = new UC_Class("L.EIC005","1LEIC08");
+    data_.leave_ucClass(202031607,*ucClass);
+    Menu menu(data_);
+    menu.exitProgram();
+
 }
 

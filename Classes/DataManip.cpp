@@ -206,7 +206,7 @@ void DataManip::set_denied_request(Request* request) {
 void DataManip::leave_ucClass(int student_code, UC_Class uc_class) {//fazerrrrrrrr
     int n= student_code;
     Student *student1 = found_student(n);
-    vector<UC_Class *> ucClasses;
+    vector<UC_Class *> ucClasses = uc_classes_;
 
     for (UC_Class *ucClass: ucClasses){
 

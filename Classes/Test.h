@@ -22,6 +22,7 @@ public:
     void test_consultStudentsEnrolled();
     void test_consultClassOcupation();
     void test_consultMaxUc();
+    void test_leave_ucClass();
 };
 
 

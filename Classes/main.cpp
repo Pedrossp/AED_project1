@@ -41,6 +41,8 @@ int main() {
 
     //test->test_consultMaxUc();
 
+    //test->test_leave_ucClass();
+
     DataManip data;
     Menu menu(data);
     menu.run();
