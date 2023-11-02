@@ -25,8 +25,9 @@ public:
     void printStudentSchedule(int student_code);// por implementar
     void printClassSchedule(string class_code); // por implementar
     void wait();
-
     void RequestMenu();
+
+    void exitProgram() const;
 };
 
 

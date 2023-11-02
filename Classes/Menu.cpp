@@ -47,7 +47,10 @@ void Menu::run() {
                 RequestMenu();
                 break;
             }
-            
+            case 6 : {
+                exitProgram();
+            }
+
         }
     }
 
@@ -145,3 +148,9 @@ void Menu::wait() {
 
 
 
+void Menu::exitProgram() const {
+    cout << endl << "Saving changes..." << endl;
+    data_.fileWriter("../schedule/students_classes_updated.csv");
+    cout << endl << "Exiting program..." << endl;
+    exit(0);
+}

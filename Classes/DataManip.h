@@ -30,6 +30,7 @@ public:
     Student* found_student(int student_code);
     UC_Class* found_ucclass(string uc_code, string class_code);
 
+    void fileWriter(string filename)const;
 };
 
 
