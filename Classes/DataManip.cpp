@@ -208,7 +208,6 @@ void DataManip::read_students_classes(string filename) {
 }
 
 void DataManip::set_pendent_requests(Request* request) {
-
     pendent_requests_.push(request);
 }
 
@@ -216,8 +215,9 @@ void DataManip::set_denied_request(Request* request) {
     denied_requests_.push(request);
 }
 
-void DataManip::leave_ucClass(Student *student, UC_Class *uc_class) {
-
+void DataManip::leave_ucClass(Student *student, string uc_code) {
+    string class_code = found_classCode_student(uc_code, student);
+    UC_Class *uc_class = new UC_Class(uc_code, class_code);
     vector<UC_Class *> ucClasses = uc_classes_;
 
     for (UC_Class *ucClass: ucClasses){
@@ -226,25 +226,68 @@ void DataManip::leave_ucClass(Student *student, UC_Class *uc_class) {
             student->rem(ucClass);
         }
     }
+    cout << "Remove complete..." << endl;
 }
 
-bool DataManip::join_new_ucClass(Student *student, UC_Class *uc_class) {
+void DataManip::join_new_ucClass(Student *student, string uc_code, string class_code) {
 
+    UC_Class *uc_class = found_ucclass(uc_code, class_code);
     int i = consultClasss_UcOcupation(uc_class);
+    int count = student->get_uc_classes().size();
 
-    if ( i >= 26){
-        return false;
+    if (count >= 7){
+        cout << "Not possible to join, already in 7 UC..." << endl;
+
     }
 
-    student->set_uc_class(uc_class);
-    return true;
+    else if ( i >= 26){
+        cout << "This UC is full..." << endl;
+    }
+
+    else{
+        student->set_uc_class(uc_class);
+        cout << "Join complete...";
+    }
 }
 
-bool DataManip::switch_class(Student *student, UC_Class *uc_class) { //fazerrrrr
-    return false;
+void DataManip::switch_class(Student *student, string uc_code, string final_class_code) { //fazerrrrr
+
+    string initial_class_code = found_classCode_student(uc_code, student);
+    UC_Class *uc_class_initial= found_ucclass(uc_code,initial_class_code);
+    UC_Class *uc_class_final = found_ucclass(uc_code, final_class_code);
+    int n_final = consultClasss_UcOcupation(uc_class_final);
+    int n_initial = consultClasss_UcOcupation(uc_class_initial);
+
+    if (n_final >= 26){
+
+        cout << "This UC is full..." << endl;
+    }
+
+    else if ( n_final < n_initial ){
+        if (!sobreposiçao_horarios()){
+
+            student->rem(uc_class_initial);
+            student->set_uc_class(uc_class_final);
+        }
+        else{
+            cout << "Sobreposiçao horarios";
+        }
+    }
+
+    else{
+        if ((n_final - n_initial) <= 4){
+            if (!sobreposiçao_horarios()){
+
+                student->rem(uc_class_initial);
+                student->set_uc_class(uc_class_final);
+            }
+            else{
+                cout << "Sobreposiçao horarios";
+            }
+        }
+
+    }
 }
-
-
 
 void DataManip::fileWriter(string filename)const{
     ofstream out(filename);

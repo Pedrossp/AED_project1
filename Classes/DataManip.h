@@ -41,13 +41,15 @@ public:
     void set_pendent_requests(Request* request);
     void set_denied_request(Request* request);
 
-    bool switch_class(Student *student, UC_Class *uc_class);        //mudar par (String class_code, String uc_code)
-    bool join_new_ucClass(Student *student, UC_Class *uc_class);     //mudar par (String class_code, String uc_code)
-    void leave_ucClass(Student *student, UC_Class *uc_class);        //mudar par (String class_code, String uc_code)
+    void switch_class(Student *student, string uc_code, string final_class_code);       //mudar par (String class_code, String uc_code)
+    void join_new_ucClass(Student *student, string uc_code, string class_code);     //mudar par (String class_code, String uc_code)
+    void leave_ucClass(Student *student, string uc_code);        //mudar par (String class_code, String uc_code)
 
     void fileWriter(string filename)const;
 
     int consultClasss_UcOcupation(UC_Class *ucClass);
+
+
 };
 
 

@@ -7,13 +7,15 @@ class Request {
 
 private:
     Student student_;
-    UC_Class uc_class_;
+    string uc_code_;
+    string class_code_;
     string type_;
 
 public:
-    Request(Student student, UC_Class uc_class, string type);
+    Request(Student student, string uc_code ,string class_code, string type);
     Student get_student();
-    UC_Class get_ucClass();
+    string get_uc_code();
+    string get_class_code();
     string get_type();
 
 };
