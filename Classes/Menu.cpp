@@ -96,9 +96,7 @@ void Menu::RequestMenu() {
     }
     else {
         cout << "This student is enrolled in the following classes: " << endl; // rever cout
-        for (UC_Class *ucClass: student->get_uc_classes()) {
-            printStudent(student);// trocar com função que da print nas ucclasses do aluno
-        }
+        student->print_ucClass_student();
         cout << "Select the type of request you want to submit: " << endl; // rever cout
         cout << endl << "1 Switch student class " << endl
              << "2 Enroll in a new Uc"  << "\n"

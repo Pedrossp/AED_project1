@@ -45,8 +45,10 @@ void Student::print_ucClass_student() {
 
     for(UC_Class *ucClass: uc_Classes_){
 
-        cout << " | " << ucClass->get_classCode() << " " << ucClass->get_ucCode();
+        cout << "| " << ucClass->get_classCode() << " " << ucClass->get_ucCode();
     }
-    cout << " |";
+    cout << " |"<<endl
+    <<endl;
+
 }
 
