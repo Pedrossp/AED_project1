@@ -45,6 +45,8 @@ int main() {
 
     //test->test_classCode_student();
 
+    //test->test_join_new_ucClass();
+
     DataManip data;
     Menu menu(data);
     menu.run();

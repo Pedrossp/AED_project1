@@ -110,11 +110,11 @@ void Menu::RequestMenu() {
                     break;
                 }
                 case(2): {
-                    AddMenu();
+                    AddMenu(student);
                     break;
                 }
                 case(3): {
-                    CancelMenu();
+                    CancelMenu(student);
                     break;
                 }
 
@@ -175,6 +175,7 @@ void Menu::AddMenu(Student *student) {
         switch (option) {
             case (1): {
                 data_.join_new_ucClass(student,finalUcCode,finalClass);
+                exitProgram();
             }
             case(2): {
                 Request *req = new Request(*student,finalUcCode,finalClass,"join");
@@ -201,7 +202,7 @@ void Menu::CancelMenu(Student *student) {
     while(true){
         switch (option) {
             case (1): {
-                data_.leave_ucClass(student,removeUcCode,empty);
+                data_.leave_ucClass(student,removeUcCode);
             }
             case(2): {
 

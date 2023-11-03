@@ -150,10 +150,10 @@ void Test::test_consultMaxUc() {
 }
 
 void Test::test_leave_ucClass() {
-    UC_Class *ucClass = new UC_Class("L.EIC005","1LEIC08");
+
     string a = "";
     Student *student = new Student(a,202031607);
-    data_.leave_ucClass(student,ucClass);
+    data_.leave_ucClass(student,"L.EIC005");
     Menu menu(data_);
     menu.exitProgram();
 
@@ -165,6 +165,15 @@ void Test::test_classCode_student() {
     string class_code = data_.found_classCode_student(uc_code, data_.found_student(code));
 
     cout << class_code;
+
+}
+
+void Test::test_join_new_ucClass() {
+    string name = "Iara";
+    Student *student = new Student(name,202025232);
+    data_.join_new_ucClass(student, "L.EIC001", "1LEIC01");
+    Menu menu(data_);
+    menu.exitProgram();
 
 }
 

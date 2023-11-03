@@ -47,7 +47,7 @@ public:
 
     void fileWriter(string filename)const;
 
-    int consultClasss_UcOcupation(UC_Class *ucClass);
+    int consultClass_UcOcupation(string uc_code, string class_code);
 
 
 };

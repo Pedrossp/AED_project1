@@ -1,6 +1,7 @@
 #include "DataManip.h"
 #include "Student.h"
 #include "Request.h"
+#include "Consulting.h"
 
 #include <fstream>
 #include <sstream>
@@ -9,6 +10,7 @@
 
 
 using namespace std;
+
 
 vector<UC_Class*> DataManip::get_uc_classes(){
     return uc_classes_;
@@ -230,10 +232,13 @@ void DataManip::leave_ucClass(Student *student, string uc_code) {
 }
 
 void DataManip::join_new_ucClass(Student *student, string uc_code, string class_code) {
-
+    Student *student1 = found_student(student->get_code());
     UC_Class *uc_class = found_ucclass(uc_code, class_code);
-    int i = consultClasss_UcOcupation(uc_class);
-    int count = student->get_uc_classes().size();
+
+    int i = consultClass_UcOcupation(uc_code, class_code);
+    int count = student1->get_uc_classes().size();
+    student1->print_ucClass_student();
+    cout << count;
 
     if (count >= 7){
         cout << "Not possible to join, already in 7 UC..." << endl;
@@ -245,7 +250,7 @@ void DataManip::join_new_ucClass(Student *student, string uc_code, string class_
     }
 
     else{
-        student->set_uc_class(uc_class);
+        student1->set_uc_class(uc_class);
         cout << "Join complete...";
     }
 }
@@ -255,14 +260,15 @@ void DataManip::switch_class(Student *student, string uc_code, string final_clas
     string initial_class_code = found_classCode_student(uc_code, student);
     UC_Class *uc_class_initial= found_ucclass(uc_code,initial_class_code);
     UC_Class *uc_class_final = found_ucclass(uc_code, final_class_code);
-    int n_final = consultClasss_UcOcupation(uc_class_final);
-    int n_initial = consultClasss_UcOcupation(uc_class_initial);
+    int n_final = consultClass_UcOcupation(uc_code, final_class_code);
+    int n_initial = consultClass_UcOcupation(uc_code, initial_class_code);
 
     if (n_final >= 26){
 
         cout << "This UC is full..." << endl;
     }
 
+/*
     else if ( n_final < n_initial ){
         if (!sobreposiçao_horarios()){
 
@@ -286,7 +292,7 @@ void DataManip::switch_class(Student *student, string uc_code, string final_clas
             }
         }
 
-    }
+    }*/
 }
 
 void DataManip::fileWriter(string filename)const{
@@ -312,7 +318,7 @@ void DataManip::fileWriter(string filename)const{
 
 }
 
-int DataManip::consultClasss_UcOcupation(UC_Class *ucClass) {
+int DataManip::consultClass_UcOcupation(string uc_code, string class_code) { //corrigir
 
     vector<Student *> students = students_;
     int count = 0;
@@ -323,10 +329,11 @@ int DataManip::consultClasss_UcOcupation(UC_Class *ucClass) {
 
         for (UC_Class *uc_class: uc_classes){
 
-            if(uc_class->get_classCode() == ucClass->get_classCode() && uc_class->get_ucCode() == ucClass->get_ucCode()){
+            if(uc_class->get_classCode() == class_code && uc_class->get_ucCode() == uc_code){
                 count++;
 
             }
         }
     }
+    return count;
 }

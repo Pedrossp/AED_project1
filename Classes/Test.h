@@ -24,6 +24,7 @@ public:
     void test_consultMaxUc();
     void test_leave_ucClass();
     void test_classCode_student();
+    void test_join_new_ucClass();
 };
 
 
