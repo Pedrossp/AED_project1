@@ -1,6 +1,7 @@
 #ifndef AED_PROJECT1_MENU_H
 #define AED_PROJECT1_MENU_H
 
+#include <list>
 #include "DataManip.h"
 
 class Menu {
@@ -42,6 +43,18 @@ public:
     void AddMenu(Student *student);
 
     void CancelMenu(Student *student);
+
+    int Students_Num_Ucs(Student *student);
+
+    void sortStudents_byname(list<Student *> students);
+    void sortStudents_bynameInv(list<Student *> students);
+    void sortStudents_bycode(list<Student *> students);
+    void sortStudents_bycodeInv(list<Student *> students);
+    void sortStudents_byNum_Uc(list<Student *> students);
+    void sortStudents_byNum_UcInv(list<Student *> students);
+
+
+
 };
 
 

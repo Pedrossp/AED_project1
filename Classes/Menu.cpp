@@ -2,6 +2,8 @@
 #include "Menu.h"
 #include "Consulting.h"
 
+
+
 using namespace std;
 
 Menu::Menu(DataManip data) {
@@ -279,4 +281,58 @@ void Menu::exitProgram() const {
     data_.fileWriter("../schedule/students_classes_updated.csv");
     cout << endl << "Exiting program..." << endl;
     exit(0);
+}
+
+
+int Menu::Students_Num_Ucs(Student *student){
+    int count = 0;
+    vector<UC_Class*> uc_classes = student->get_uc_classes();
+
+    for (UC_Class *uc_class : uc_classes){
+        count ++;
+    }
+
+    return count;
+}
+
+// Funções Sort
+
+void Menu::sortStudents_byname(list<Student*> students) {
+    students.sort([](Student* student1, Student* student2) {
+        return student1->get_name() < student2->get_name();
+    });
+}
+
+void Menu::sortStudents_bynameInv(list<Student*> students) {
+    students.sort([](Student* student1, Student* student2) {
+        return student1->get_name() > student2->get_name();
+    });
+}
+
+void Menu::sortStudents_bycode(list<Student *> students) {
+    students.sort([](Student* student1, Student* student2) {
+        return student1->get_code() < student2->get_code();
+    });
+}
+
+void Menu::sortStudents_bycodeInv(list<Student *> students) {
+    students.sort([](Student* student1, Student* student2) {
+        return student1->get_code() > student2->get_code();
+    });
+}
+
+void Menu::sortStudents_byNum_Uc(list<Student *> students) {
+    students.sort([this](Student* student1, Student* student2) {
+        int num1 = Students_Num_Ucs(student1);
+        int num2 = Students_Num_Ucs(student2);
+        return num1 < num2;
+    });
+}
+
+void Menu::sortStudents_byNum_UcInv(list<Student *> students) {
+    students.sort([this](Student* student1, Student* student2) {
+        int num1 = Students_Num_Ucs(student1);
+        int num2 = Students_Num_Ucs(student2);
+        return num1 > num2;
+    });
 }
