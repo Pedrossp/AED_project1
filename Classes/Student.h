@@ -5,6 +5,9 @@
 
 #include <string>
 #include <vector>
+#include <string>
+#include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -27,6 +30,9 @@ public:
     void rem(UC_Class* uc_class);
 
     void set_uc_class(UC_Class* uc_Classes);
+
+    void print_student();
+    void print_ucClass_student();
 
 };
 

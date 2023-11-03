@@ -151,7 +151,9 @@ void Test::test_consultMaxUc() {
 
 void Test::test_leave_ucClass() {
     UC_Class *ucClass = new UC_Class("L.EIC005","1LEIC08");
-    data_.leave_ucClass(202031607,*ucClass);
+    string a = "";
+    Student *student = new Student(a,202031607);
+    data_.leave_ucClass(student,ucClass);
     Menu menu(data_);
     menu.exitProgram();
 

@@ -1,8 +1,4 @@
 #include "Student.h"
-#include "UC_Class.h"
-
-#include <string>
-#include <algorithm>
 
 using namespace std;
 
@@ -38,5 +34,19 @@ void Student::rem(UC_Class* uc_class) {
     auto it = remove_if(uc_Classes_.begin(), uc_Classes_.end(),[uc_class] (UC_Class* t){ return (uc_class->get_ucCode() == t->get_ucCode()) && (uc_class->get_classCode() == t->get_classCode());});
     uc_Classes_.erase(it, uc_Classes_.end());
 
+}
+
+void Student::print_student() {
+
+    cout << studentName_ << ": " << studentCode_;
+}
+
+void Student::print_ucClass_student() {
+
+    for(UC_Class *ucClass: uc_Classes_){
+
+        cout << " | " << ucClass->get_classCode() << " " << ucClass->get_ucCode();
+    }
+    cout << " |";
 }
 

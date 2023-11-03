@@ -203,33 +203,31 @@ void DataManip::set_denied_request(Request* request) {
     denied_requests_.push(request);
 }
 
-void DataManip::leave_ucClass(int student_code, UC_Class uc_class) {//fazerrrrrrrr
-    int n= student_code;
-    Student *student1 = found_student(n);
+void DataManip::leave_ucClass(Student *student, UC_Class *uc_class) {
+
     vector<UC_Class *> ucClasses = uc_classes_;
 
     for (UC_Class *ucClass: ucClasses){
 
-        if (ucClass->get_ucCode() == uc_class.get_ucCode() && ucClass->get_classCode() == uc_class.get_classCode()){
-            student1->rem(ucClass);
+        if (ucClass->get_ucCode() == uc_class->get_ucCode() && ucClass->get_classCode() == uc_class->get_classCode()){
+            student->rem(ucClass);
         }
     }
 }
-//test--------------------------------------------------------------------------------
-bool DataManip::join_new_ucClass(int student_code, UC_Class *uc_class) {  //fazerrrrrrr
 
-    Student *student = found_student(student_code);
+bool DataManip::join_new_ucClass(Student *student, UC_Class *uc_class) {
+
     int i = consultClasss_UcOcupation(uc_class);
 
-    if ( i == 26){
+    if ( i >= 26){
         return false;
     }
 
     student->set_uc_class(uc_class);
     return true;
 }
-//test--------------------------------------------------------------------------------
-bool DataManip::switch_class(int student_code, UC_Class uc_class) { //fazerrrrr
+
+bool DataManip::switch_class(Student *student, UC_Class *uc_class) { //fazerrrrr
     return false;
 }
 
@@ -258,7 +256,6 @@ void DataManip::fileWriter(string filename)const{
 
 }
 
-//test-------------------------------------------------------------------------------------
 int DataManip::consultClasss_UcOcupation(UC_Class *ucClass) {
 
     vector<Student *> students = students_;
@@ -277,5 +274,3 @@ int DataManip::consultClasss_UcOcupation(UC_Class *ucClass) {
         }
     }
 }
-//test---------------------------------------------------------------------------------------
-
