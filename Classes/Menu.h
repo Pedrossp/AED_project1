@@ -38,6 +38,10 @@ public:
 
 
     UC_Class* askUcClass(Student *student);
+
+    void AddMenu(Student *student);
+
+    void CancelMenu(Student *student);
 };
 
 

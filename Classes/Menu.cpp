@@ -126,6 +126,13 @@ void Menu::RequestMenu() {
 
 void Menu::SwitchMenu(Student *student) {
 
+    cout << "Please insert the uc code: " ;
+    string initialUcCode;
+    cin >> initialUcCode;
+
+    cout << "Please enter the class you want to switch to: ";
+    string finalClass;
+    cin>>finalClass;
 
     cout << "Select one option: " <<endl;// atenção ao cout á trolha
     cout << endl
@@ -138,24 +145,74 @@ void Menu::SwitchMenu(Student *student) {
     while(true){
         switch (option) {
             case (1): {
-                UC_Class* ucClass = new UC_Class(askUcClass(student)->get_ucCode(), askUcClass(student)->get_classCode());
-                data_.switch_class(student,ucClass);
+                data_.switch_class(student,initialUcCode, finalClass);
             }
-
+            case(2): {
+                Request *req = new Request(*student,initialUcCode,finalClass,"switch");
+                data_.set_pendent_requests(req);
+            }
         }
     }
-
 }
 
-void Menu::AddMenu() {
+void Menu::AddMenu(Student *student) {
+    cout << "Please insert the uc code: " ;
+    string finalUcCode;
+    cin >> finalUcCode;
 
+    cout << "Please enter the class you want to join to: ";
+    string finalClass;
+    cin>>finalClass;
+    cout << "Select one option: " <<endl;// atenção ao cout á trolha
+    cout << endl
+         << "1 Instant request handling" << endl
+         << "2 Add to pending requests" << endl << "\n"
+         << " "; // voltar atras
+    int option;
+    cin >> option;
+
+    while(true){
+        switch (option) {
+            case (1): {
+                data_.join_new_ucClass(student,finalUcCode,finalClass);
+            }
+            case(2): {
+                Request *req = new Request(*student,finalUcCode,finalClass,"join");
+                data_.set_pendent_requests(req);
+            }
+        }
+    }
 }
 
-void Menu::CancelMenu() {
+void Menu::CancelMenu(Student *student) {
+    cout << "Please insert the uc code: " ;
+    string removeUcCode;
+    cin >> removeUcCode;
 
+    cout << "Select one option: " <<endl;// atenção ao cout á trolha
+    cout << endl
+         << "1 Instant request handling" << endl
+         << "2 Add to pending requests" << endl << "\n"
+         << " "; // voltar atras
+    int option;
+    cin >> option;
+
+    string empty= "";
+    while(true){
+        switch (option) {
+            case (1): {
+                data_.leave_ucClass(student,removeUcCode,empty);
+            }
+            case(2): {
+
+                Request *req = new Request(*student,removeUcCode,empty,"leave");
+                data_.set_pendent_requests(req);
+            }
+        }
+    }
 }
 
-UC_Class* Menu::askUcClass(Student* student) {
+/*UC_Class* Menu::askUcClass(Student* student) {
     cout << "Please insert the uc code: " ;
     string ucCode,classCode;
     cin >> ucCode;
@@ -164,7 +221,7 @@ UC_Class* Menu::askUcClass(Student* student) {
     return ucClass;
 
 }
-
+*/
 void Menu::checkStudentSchedule() {
     int student_code;
     cout << "Please insert the student's UP number: ";
@@ -215,8 +272,6 @@ void Menu::wait() {
     cin >> input;
         OptionsMenu();
 }
-
-
 
 void Menu::exitProgram() const {
     cout << endl << "Saving changes..." << endl;
