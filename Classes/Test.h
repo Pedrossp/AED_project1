@@ -23,6 +23,7 @@ public:
     void test_consultClassOcupation();
     void test_consultMaxUc();
     void test_leave_ucClass();
+    void test_classCode_student();
 };
 
 

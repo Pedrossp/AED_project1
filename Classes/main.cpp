@@ -43,6 +43,8 @@ int main() {
 
     //test->test_leave_ucClass();
 
+    //test->test_classCode_student();
+
     DataManip data;
     Menu menu(data);
     menu.run();

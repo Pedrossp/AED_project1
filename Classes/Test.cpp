@@ -159,3 +159,14 @@ void Test::test_leave_ucClass() {
 
 }
 
+void Test::test_classCode_student() {
+    int code = 202071557;
+    string uc_code = "L.EIC021";
+    string class_code = data_.found_classCode_student(uc_code, data_.found_student(code));
+
+    cout << class_code;
+
+}
+
+
+

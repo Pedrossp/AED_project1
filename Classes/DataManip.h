@@ -36,6 +36,7 @@ public:
 
     Student* found_student(int student_code);
     UC_Class* found_ucclass(string uc_code, string class_code);
+    string found_classCode_student(string uc_code, Student *student);
 
     void set_pendent_requests(Request* request);
     void set_denied_request(Request* request);

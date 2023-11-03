@@ -79,6 +79,19 @@ Student *DataManip::found_student(int student_code) {
     return stdnt;
 }
 
+string DataManip::found_classCode_student(std::string uc_code, Student *student) {
+
+    vector<UC_Class*> uc_classes = student->get_uc_classes();
+
+    for (UC_Class *ucClass: uc_classes){
+
+        if (ucClass->get_ucCode()==uc_code){
+
+            return ucClass->get_classCode();
+        }
+    }
+}
+
 void DataManip::read_classes_per_uc(string filename) {
 
     string line, ucCode, classCode;
