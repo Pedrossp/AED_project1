@@ -28,6 +28,16 @@ public:
     void RequestMenu();
 
     void exitProgram() const;
+
+    void SwitchMenu(Student *student);
+
+    void AddMenu();
+
+    void CancelMenu();
+
+
+
+    UC_Class* askUcClass(Student *student);
 };
 
 
