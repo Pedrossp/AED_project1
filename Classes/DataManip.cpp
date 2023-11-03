@@ -231,11 +231,13 @@ void DataManip::leave_ucClass(Student *student, string uc_code) {
     cout << "Remove complete..." << endl;
 }
 
-void DataManip::join_new_ucClass(Student *student, string uc_code, string class_code) {
+void DataManip::join_new_ucClass(Student *student, string uc_code, string final_class_code) {
     Student *student1 = found_student(student->get_code());
-    UC_Class *uc_class = found_ucclass(uc_code, class_code);
+    string initial_class_code = found_classCode_student(uc_code, student);
+    UC_Class *uc_class_initial= found_ucclass(uc_code,initial_class_code);
+    UC_Class *uc_class_final = found_ucclass(uc_code, final_class_code);
 
-    int i = consultClass_UcOcupation(uc_code, class_code);
+    int i = consultClass_UcOcupation(uc_code, final_class_code);
     int count = student1->get_uc_classes().size();
     student1->print_ucClass_student();
     cout << count;
@@ -245,17 +247,27 @@ void DataManip::join_new_ucClass(Student *student, string uc_code, string class_
 
     }
 
+    else if(!timetable_overlap(student1, uc_class_initial, uc_class_final)){
+        cout << "Timetable Overlap" << endl;
+    }
+
     else if ( i >= 26){
         cout << "This UC is full..." << endl;
     }
 
     else{
-        student1->set_uc_class(uc_class);
+        student1->set_uc_class(uc_class_final);
         cout << "Join complete...";
     }
+    //adicionar sobreposiçoes
 }
 
 void DataManip::switch_class(Student *student, string uc_code, string final_class_code) { //fazerrrrr
+
+    if (!student->isEnrolled(uc_code)){
+        cout << "This student is not enrolled in this UC" << endl;
+        return;
+    }
 
     string initial_class_code = found_classCode_student(uc_code, student);
     UC_Class *uc_class_initial= found_ucclass(uc_code,initial_class_code);
@@ -268,31 +280,31 @@ void DataManip::switch_class(Student *student, string uc_code, string final_clas
         cout << "This UC is full..." << endl;
     }
 
-/*
+
     else if ( n_final < n_initial ){
-        if (!sobreposiçao_horarios()){
+        if (!timetable_overlap(student, uc_class_initial, uc_class_final)){
 
             student->rem(uc_class_initial);
             student->set_uc_class(uc_class_final);
         }
         else{
-            cout << "Sobreposiçao horarios";
+            cout << "Timetable Overlap" << endl;
         }
     }
 
     else{
         if ((n_final - n_initial) <= 4){
-            if (!sobreposiçao_horarios()){
+            if (!timetable_overlap(student, uc_class_initial ,uc_class_final)){
 
                 student->rem(uc_class_initial);
                 student->set_uc_class(uc_class_final);
             }
             else{
-                cout << "Sobreposiçao horarios";
+                cout << "Timetable Overlap" << endl;
             }
         }
 
-    }*/
+    }
 }
 
 void DataManip::fileWriter(string filename)const{
@@ -337,3 +349,55 @@ int DataManip::consultClass_UcOcupation(string uc_code, string class_code) { //c
     }
     return count;
 }
+
+bool DataManip::timetable_overlap(Student *student, UC_Class *uc_class_initial, UC_Class *uc_class_final) {
+
+    student->rem(uc_class_initial);
+
+    vector<Lesson*> lessons_final = uc_class_final->get_lessons();
+    vector<UC_Class*> uc_classes = student->get_uc_classes();
+
+    for (UC_Class *ucClass: uc_classes){
+
+        vector<Lesson*> lessons = ucClass->get_lessons();
+
+        for (Lesson *lesson: lessons){
+
+            for (Lesson *lesson_final: lessons_final){
+
+                if (lesson->get_weekday() == lesson_final->get_weekday() && (lesson->get_starthour() < lesson_final->get_endhour()  && lesson->get_endhour() > lesson_final->get_starthour())){
+
+                    student->set_uc_class(uc_class_initial);
+                    return true;
+
+                }
+            }
+        }
+    }
+    student->set_uc_class(uc_class_initial);
+    return false;
+
+}
+
+void DataManip::process_pendent_requests() {
+
+    while(!pendent_requests_.empty()){
+        Request *request = pendent_requests_.front();
+
+        if (request->get_type() == "switch"){
+            Student *student = found_student(request->get_student().get_code());
+            switch_class(student, request->get_uc_code(), request->get_class_code());
+        }
+
+        if (request->get_type() == "join"){
+            Student *student = found_student(request->get_student().get_code());
+            join_new_ucClass(student, request->get_uc_code(), request->get_class_code());
+        }
+
+        if (request->get_type() == "leave"){
+            Student *student = found_student(request->get_student().get_code());
+            leave_ucClass(student, request->get_uc_code());
+        }
+    }
+}
+

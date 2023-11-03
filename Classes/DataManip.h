@@ -39,13 +39,16 @@ public:
     string found_classCode_student(string uc_code, Student *student);
 
     void set_pendent_requests(Request* request);
-    void set_denied_request(Request* request);
+    void set_denied_request(Request* request);      //refletir se iremos utiliazr
 
     void switch_class(Student *student, string uc_code, string final_class_code);       //mudar par (String class_code, String uc_code)
     void join_new_ucClass(Student *student, string uc_code, string class_code);     //mudar par (String class_code, String uc_code)
     void leave_ucClass(Student *student, string uc_code);        //mudar par (String class_code, String uc_code)
 
+    void process_pendent_requests();
+
     void fileWriter(string filename)const;
+    bool timetable_overlap(Student *student, UC_Class *uc_class_initial, UC_Class *uc_class_final);
 
     int consultClass_UcOcupation(string uc_code, string class_code);
 

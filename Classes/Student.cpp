@@ -49,6 +49,15 @@ void Student::print_ucClass_student() {
     }
     cout << " |"<<endl
     <<endl;
+}
 
+bool Student::isEnrolled(string ucCode){
+
+    for (UC_Class *ucclasses: uc_Classes_) {
+        if (ucclasses->get_ucCode() == ucCode) {
+            return true;
+        }
+    }
+    return false;
 }
 

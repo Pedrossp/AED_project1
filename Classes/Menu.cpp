@@ -146,6 +146,7 @@ void Menu::SwitchMenu(Student *student) {
         switch (option) {
             case (1): {
                 data_.switch_class(student,initialUcCode, finalClass);
+                exitProgram();
             }
             case(2): {
                 Request *req = new Request(*student,initialUcCode,finalClass,"switch");

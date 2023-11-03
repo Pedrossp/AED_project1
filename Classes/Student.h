@@ -34,6 +34,7 @@ public:
     void print_student();
     void print_ucClass_student();
 
+    bool isEnrolled(string ucCode);
 };
 
 #endif //AED_PROJECT_STUDENTS_H<<<<<<< HEAD
