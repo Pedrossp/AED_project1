@@ -49,6 +49,10 @@ void Menu::run() {
                 RequestMenu();
                 break;
             }
+            case 5: {
+                data_.process_pendent_requests();
+                break;
+            }
             case 6 : {
                 exitProgram();
             }
@@ -62,17 +66,19 @@ void Menu::TimetablesMenu() {
             << "1 Check the schedule of a student" << endl
             << "2 Check the schedule of a class"<< endl <<"\n"
             << "What would you like to do next? " ;
-            int option;
-            cin >>option;
+            int option1;
+            cin >>option1;
 
-    switch (option) {
+    switch (option1) {
         case 1: {
             checkStudentSchedule();
             wait();
+            break;
         }
         case 2: {
             checkClassSchedule();
             wait();
+            break;
         }
 
     }
@@ -93,8 +99,9 @@ void Menu::RequestMenu() {
 
     Student* student =data_.found_student(student_code);
 
-    if(student->get_code() == -1){
+    if(student == nullptr){
         // pagina de erro
+        cout << "n foi encontrado";
     }
     else {
         cout << "This student is enrolled in the following classes: " << endl; // rever cout
@@ -105,7 +112,8 @@ void Menu::RequestMenu() {
              << "3 Cancel uc registration";
         int option;
         cin >> option;
-        while (true) {
+
+
             switch (option) {
                 case (1): {
                     SwitchMenu(student);
@@ -122,7 +130,7 @@ void Menu::RequestMenu() {
 
             }
 
-        }
+
     }
 }
 
@@ -144,18 +152,20 @@ void Menu::SwitchMenu(Student *student) {
     int option;
     cin >> option;
 
-    while(true){
+
         switch (option) {
             case (1): {
+                cout << initialUcCode <<" " << finalClass;
                 data_.switch_class(student,initialUcCode, finalClass);
-                exitProgram();
+                break;
             }
             case(2): {
                 Request *req = new Request(*student,initialUcCode,finalClass,"switch");
                 data_.set_pendent_requests(req);
+                break;
             }
         }
-    }
+
 }
 
 void Menu::AddMenu(Student *student) {
@@ -174,18 +184,19 @@ void Menu::AddMenu(Student *student) {
     int option;
     cin >> option;
 
-    while(true){
+
         switch (option) {
             case (1): {
-                data_.join_new_ucClass(student,finalUcCode,finalClass);
-                exitProgram();
+                data_.join_new_ucClass(student->get_code(),finalUcCode,finalClass);
+                break;
             }
             case(2): {
                 Request *req = new Request(*student,finalUcCode,finalClass,"join");
                 data_.set_pendent_requests(req);
+                break;
             }
         }
-    }
+
 }
 
 void Menu::CancelMenu(Student *student) {
@@ -202,18 +213,20 @@ void Menu::CancelMenu(Student *student) {
     cin >> option;
 
     string empty= "";
-    while(true){
+
         switch (option) {
             case (1): {
                 data_.leave_ucClass(student,removeUcCode);
+                break;
             }
             case(2): {
 
                 Request *req = new Request(*student,removeUcCode,empty,"leave");
                 data_.set_pendent_requests(req);
+                break;
             }
         }
-    }
+
 }
 
 /*UC_Class* Menu::askUcClass(Student* student) {
@@ -274,7 +287,6 @@ void Menu::wait() {
     string input;
     cout << "Press any key to leave"<<endl;
     cin >> input;
-        OptionsMenu();
 }
 
 void Menu::exitProgram() const {

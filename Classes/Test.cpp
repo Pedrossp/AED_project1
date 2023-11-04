@@ -169,12 +169,13 @@ void Test::test_classCode_student() {
 }
 
 void Test::test_join_new_ucClass() {
-    string name = "Iara";
-    Student *student = new Student(name,202025232);
-    data_.join_new_ucClass(student, "L.EIC001", "1LEIC01");
-    Menu menu(data_);
-    menu.exitProgram();
-
+    try {
+        data_.join_new_ucClass(202025232, "L.EIC001", "1LEIC01");
+        Menu menu(data_);
+        menu.exitProgram();
+    } catch (const std::bad_alloc& e) {
+        std::cerr << "Allocation failed: " << e.what() << std::endl;
+    }
 }
 
 
