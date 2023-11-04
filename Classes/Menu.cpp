@@ -70,7 +70,7 @@ void Menu::TimetablesMenu() {
             << "2 Check the schedule of a class"<< endl <<"\n"
             << "What would you like to do next? " ;
             int option1;
-            cin >>option1;
+            cin >> option1;
 
     switch (option1) {
         case 1: {
@@ -89,8 +89,107 @@ void Menu::TimetablesMenu() {
 }
 
 void Menu::StudentsMenu() {
-    cout   << endl << "========= Students Menu ==========" << endl <<"\n";
+    cout   << endl << "========= Students Menu ==========" << endl <<"\n"
+            << "1 Search students by year" << endl
+            << "2 Search students by uc" << endl
+            << "3 Search students by class"<< endl
+            << "4 Consult students enrolled in x number of uc's" << endl
+            << "5 Back" << endl << "\n"
+            << "What would you like to do next? " ;
 
+            int option1;
+            cin >> option1;
+
+            Consulting *consult = new Consulting(data_);
+
+    switch (option1) {
+        case 1: {
+            cout << "Which year do you want to consult? ";
+            char year;
+            cin >> year;
+            list<Student*> students = consult->consultStudentYear(year);
+            SortMenu(students);
+            break;
+        }
+        case 2: {
+            cout << "Please insert the uc code: ";
+            string uc_code;
+            cin >> uc_code;
+            list<Student*> students = consult->consultStudentUc(uc_code);
+            SortMenu(students);
+            break;
+        }
+        case 3: {
+            cout << "Please insert the uc class: ";
+            string class_code;
+            cin >> class_code;
+            list<Student*> students = consult->consultStudentClass(class_code);
+            SortMenu(students);
+            break;
+        }
+        case 4: {
+            cout << "Insert the number of uc's: ";
+            int n;
+            cin >> n;
+            cout << "The number of students enrolled in " << n << " uc's is: " << consult->consultStudentsEnrolled(n) << "\n";
+        }
+
+    }
+
+}
+
+void Menu::SortMenu(list<Student*> students) {
+    cout   << endl << "========= Sort Menu ==========" << endl <<"\n"
+            << "1 Sort students by name (A-Z)" << endl
+            << "2 Sort students by name (Z-A)" << endl
+            << "3 Sort students by code (lower to higher)"<< endl
+            << "4 Sort students by code (higher to lower)" << endl
+            << "5 Sort students by number of uc's (lower to higher)" << endl
+            << "6 Sort students by number of uc's (higher to lower)" << endl
+            << "7 Back" << endl << "\n"
+            << "What would you like to do next? " ;
+
+            int option1;
+            cin >> option1;
+
+    switch (option1) {
+        case 1: {
+            sortStudents_byname(students);
+            printListStudents(students);
+            wait();
+            break;
+        }
+        case 2: {
+            sortStudents_bynameInv(students);
+            printListStudents(students);
+            wait();
+            break;
+        }
+        case 3: {
+            printListStudents(students);
+            wait();
+            break;
+        }
+        case 4: {
+            sortStudents_bycodeInv(students);
+            printListStudents(students);
+            wait();
+            break;
+        }
+        case 5: {
+            sortStudents_byNum_Uc(students);
+            printListStudents(students);
+            wait();
+            break;
+        }
+        case 6: {
+            sortStudents_byNum_UcInv(students);
+            printListStudents(students);
+            wait();
+            break;
+        }
+
+    }
 }
 
 void Menu::RequestMenu() {
@@ -250,7 +349,7 @@ void Menu::checkStudentSchedule() {
 
 void Menu::checkClassSchedule() {
     string class_code;
-    cout << "Please insert the class code : ";
+    cout << "Please insert the class code: ";
     cin>> class_code;
     printClassSchedule(class_code);
 }
@@ -280,8 +379,14 @@ void Menu::printClassSchedule(string class_code) { // METER BONITO
         pair<string, string> pair = lessons.second;
         for(Lesson *lesson: lessons.first){
 
-            cout <<lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() << " " << pair.first << " " << pair.second <<"\n";
+            cout << lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() << " " << pair.first << " " << pair.second <<"\n";
         }
+    }
+}
+
+void Menu::printListStudents(list<Student*> students) {
+    for(Student *student : students) {
+        cout << student->get_name() << " " << student->get_code() << "\n";
     }
 }
 
@@ -312,31 +417,31 @@ int Menu::Students_Num_Ucs(Student *student){
 
 // Funções Sort
 
-void Menu::sortStudents_byname(list<Student*> students) {
+void Menu::sortStudents_byname(list<Student*>& students) {
     students.sort([](Student* student1, Student* student2) {
         return student1->get_name() < student2->get_name();
     });
 }
 
-void Menu::sortStudents_bynameInv(list<Student*> students) {
+void Menu::sortStudents_bynameInv(list<Student*>& students) {
     students.sort([](Student* student1, Student* student2) {
         return student1->get_name() > student2->get_name();
     });
 }
 
-void Menu::sortStudents_bycode(list<Student *> students) {
+void Menu::sortStudents_bycode(list<Student *>& students) {
     students.sort([](Student* student1, Student* student2) {
         return student1->get_code() < student2->get_code();
     });
 }
 
-void Menu::sortStudents_bycodeInv(list<Student *> students) {
+void Menu::sortStudents_bycodeInv(list<Student *>& students) {
     students.sort([](Student* student1, Student* student2) {
         return student1->get_code() > student2->get_code();
     });
 }
 
-void Menu::sortStudents_byNum_Uc(list<Student *> students) {
+void Menu::sortStudents_byNum_Uc(list<Student *>& students) {
     students.sort([this](Student* student1, Student* student2) {
         int num1 = Students_Num_Ucs(student1);
         int num2 = Students_Num_Ucs(student2);
@@ -344,7 +449,7 @@ void Menu::sortStudents_byNum_Uc(list<Student *> students) {
     });
 }
 
-void Menu::sortStudents_byNum_UcInv(list<Student *> students) {
+void Menu::sortStudents_byNum_UcInv(list<Student *>& students) {
     students.sort([this](Student* student1, Student* student2) {
         int num1 = Students_Num_Ucs(student1);
         int num2 = Students_Num_Ucs(student2);

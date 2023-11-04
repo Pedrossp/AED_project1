@@ -25,6 +25,7 @@ public:
     //print functions
     void printStudentSchedule(int student_code);// por implementar
     void printClassSchedule(string class_code); // por implementar
+    void printListStudents(list<Student *> students);
     void wait();
     void RequestMenu();
 
@@ -46,15 +47,15 @@ public:
 
     int Students_Num_Ucs(Student *student);
 
-    void sortStudents_byname(list<Student *> students);
-    void sortStudents_bynameInv(list<Student *> students);
-    void sortStudents_bycode(list<Student *> students);
-    void sortStudents_bycodeInv(list<Student *> students);
-    void sortStudents_byNum_Uc(list<Student *> students);
-    void sortStudents_byNum_UcInv(list<Student *> students);
+    void sortStudents_byname(list<Student *>& students);
+    void sortStudents_bynameInv(list<Student *>& students);
+    void sortStudents_bycode(list<Student *>& students);
+    void sortStudents_bycodeInv(list<Student *>& students);
+    void sortStudents_byNum_Uc(list<Student *>& students);
+    void sortStudents_byNum_UcInv(list<Student *>& students);
 
 
-
+    void SortMenu(list<Student*>);
 };
 
 
