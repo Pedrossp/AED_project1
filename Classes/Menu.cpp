@@ -49,6 +49,9 @@ void Menu::run() {
                 RequestMenu();
                 break;
             }
+            case 4:
+                data_.ShowPendingRequests();
+                break;
             case 5: {
                 data_.process_pendent_requests();
                 break;
@@ -155,7 +158,6 @@ void Menu::SwitchMenu(Student *student) {
 
         switch (option) {
             case (1): {
-                cout << initialUcCode <<" " << finalClass;
                 data_.switch_class(student,initialUcCode, finalClass);
                 break;
             }

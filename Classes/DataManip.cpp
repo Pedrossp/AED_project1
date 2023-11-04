@@ -84,9 +84,6 @@ string DataManip::found_classCode_student(string uc_code, Student* student) {
     vector<UC_Class*> uc_classes = student->get_uc_classes();
 
     for (UC_Class *ucClass: uc_classes){
-        cout << ucClass->get_classCode() << endl;
-        cout << ucClass->get_ucCode() << endl;
-        cout << uc_code;
         if (ucClass->get_ucCode()==uc_code){
 
             return ucClass->get_classCode();
@@ -237,7 +234,6 @@ void DataManip::join_new_ucClass(int student_code, string uc_code_final, string 
     int i = consultClass_UcOcupation(uc_code_final, final_class_code);
     int count = student1->get_uc_classes().size();
     student1->print_ucClass_student();
-    cout << count;
 
     if (count >= 7){
         cout << "Not possible to join, already in 7 UC..." << endl;
@@ -300,12 +296,13 @@ void DataManip::switch_class(Student *student, string uc_code, string final_clas
 
     else{
         if ((n_final - n_initial) <= 4){
+            student->rem(uc_class_initial);
             if (!timetable_overlap(student, uc_class_final)){
 
-                student->rem(uc_class_initial);
                 student->set_uc_class(uc_class_final);
             }
             else{
+                student->set_uc_class(uc_class_final);
                 cout << "Timetable Overlap" << endl;
                 Request *request = new Request(*student, uc_code,final_class_code, "switch");
                 denied_requests_.push(request);
@@ -405,6 +402,32 @@ void DataManip::process_pendent_requests() {
             leave_ucClass(student, request->get_uc_code());
             pendent_requests_.pop();
         }
+    }
+}
+
+void DataManip::ShowPendingRequests() {
+    queue<Request*> copyQueue = pendent_requests_;
+    cout << "Pending requests: " <<endl;
+
+    while(!copyQueue.empty()){
+
+        Request *request = copyQueue.front();
+        cout << "Student nº " << request->get_student().get_code()
+        << " has a request to " ;
+
+        if(request->get_type()== "join"){
+            cout << "join the uc " << request->get_uc_code() << " in the class " << request->get_class_code()<<"."<< endl;
+        }
+
+        else if (request->get_type()== "switch"){
+            cout<< "switch to class " << request->get_class_code() << " in the uc " << request->get_uc_code()<<"." << endl;
+        }
+
+        else if (request->get_type()=="leave"){
+            cout << "leave this uc " << request->get_uc_code() <<"." <<endl;
+        }
+
+        copyQueue.pop();
     }
 }
 

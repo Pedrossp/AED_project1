@@ -53,6 +53,7 @@ public:
     int consultClass_UcOcupation(string uc_code, string class_code);
 
 
+    void ShowPendingRequests();
 };
 
 
