@@ -17,9 +17,12 @@ private:
     vector<Lesson*> Lessons_;
 
 public:
+
+    //construtores
     UC_Class();
     UC_Class(string UcCode,string ClassCode);
 
+    //getters
     string const get_ucCode();
     string const get_classCode();
     vector<Lesson*> const get_lessons();

@@ -20,15 +20,28 @@ vector<Student *> DataManip::get_students() {
     return students_;
 }
 
-queue<Request *> DataManip::get_pendent_requests() {
-    return pendent_requests_;
-}
-
+/**
+ * @brief Ordena os estudantes pelo seu código de estudante em ordem crescente.
+ * @param students Um vetor de ponteiros para objetos Student que deve ser ordenado.
+ * @complexity A complexidade de tempo é O(n log n), onde 'n' é o número de estudantes no vetor.
+ */
 void DataManip::sortStudents_bycode(vector<Student *>) {
     sort(students_.begin(), students_.end(), [](Student* student1, Student* student2) {
         return student1->get_code() < student2->get_code();
     });
 }
+/**
+ * @brief Encontra uma classe de UC com base no código de UC e no código da classe.
+ * @param uc_code O código de UC a ser pesquisado.
+ * @param class_code O código da classe a ser pesquisado.
+ * @return Um ponteiro para a classe de UC encontrada ou nullptr se não for encontrada.
+ *
+ * A função realiza uma pesquisa binária no vetor de classes de UC para encontrar uma classe de UC
+ * com os códigos de UC e classe fornecidos. Se uma classe correspondente for encontrada, um ponteiro para
+ * a classe de UC é retornado; caso contrário, retorna nullptr.
+ *
+ * @complexity A complexidade de tempo é O(log n), onde 'n' é o número de classes de UC no vetor.
+ */
 
 UC_Class *DataManip::found_ucclass(string uc_code, string class_code){
     int size = uc_classes_.size();
@@ -53,6 +66,18 @@ UC_Class *DataManip::found_ucclass(string uc_code, string class_code){
 
     return nullptr;
 }
+
+/**
+ * @brief Encontra um estudante com base no código do estudante.
+ * @param student_code O código do estudante a ser pesquisado.
+ * @return Um ponteiro para o estudante encontrado ou nullptr se não for encontrado.
+ *
+ * A função realiza uma pesquisa binária no vetor de estudantes para encontrar um estudante com o código fornecido.
+ * Se um estudante correspondente for encontrado, um ponteiro para o estudante é retornado; caso contrário, retorna nullptr.
+ *
+ * @complexity A complexidade de tempo é O(log n), onde 'n' é o número de estudantes no vetor.
+ */
+
 Student *DataManip::found_student(int student_code) {
     int size = students_.size();
     int low = 0;
@@ -75,6 +100,16 @@ Student *DataManip::found_student(int student_code) {
     return nullptr;
 }
 
+/**
+ * @brief Verifica se um código de classe existe no vetor de classes de UC.
+ * @param class_code O código da classe a ser verificado.
+ * @return True se o código de classe for encontrado, False caso contrário.
+ *
+ * A função percorre o vetor de classes de UC e verifica se algum deles tem o código de classe fornecido.
+ * Retorna True se um código de classe correspondente for encontrado e False se nenhum for encontrado.
+ *
+ * @complexity A complexidade de tempo é O(n), onde 'n' é o número de classes de UC no vetor.
+ */
 bool DataManip::found_if_class_code(string class_code){
 
     for (UC_Class* ucClass: uc_classes_){
@@ -85,6 +120,16 @@ bool DataManip::found_if_class_code(string class_code){
     return false;
 }
 
+/**
+ * @brief Verifica se um código de UC existe no vetor de classes de UC.
+ * @param uc_code O código da UC a ser verificado.
+ * @return True se o código de UC for encontrado, False caso contrário.
+ *
+ * A função realiza uma pesquisa binária no vetor de classes de UC para verificar se um código de UC correspondente é encontrado.
+ * Retorna True se um código de UC correspondente for encontrado e False se nenhum for encontrado.
+ *
+ * @complexity A complexidade de tempo é O(log n), onde 'n' é o número de classes de UC no vetor.
+ */
 bool DataManip::found_if_uc_code(string uc_code){
 
     int size = uc_classes_.size();
@@ -104,11 +149,19 @@ bool DataManip::found_if_uc_code(string uc_code){
             high = mid - 1;
         }
     }
-
     return false;
-
 }
 
+/**
+ * @brief Encontra o código da classe de UC de um estudante para uma UC específica.
+ * @param uc_code O código da UC para a qual se deseja encontrar a classe.
+ * @param student O estudante para o qual se deseja encontrar o código da classe.
+ * @return O código da classe de UC correspondente à UC especificada e ao estudante, ou uma string vazia se não for encontrado.
+ *
+ * A função percorre as classes de UC de um estudante e verifica se alguma delas corresponde à UC especificada pelo código. Se uma correspondência for encontrada, o código da classe de UC é retornado. Caso contrário, uma string vazia é retornada.
+ *
+ * @complexity A complexidade de tempo é O(n), onde 'n' é o número de classes de UC do estudante para as quais é verificada a correspondência.
+ */
 string DataManip::found_classCode_student(string uc_code, Student* student) {
 
     vector<UC_Class*> uc_classes = student->get_uc_classes();
@@ -121,6 +174,16 @@ string DataManip::found_classCode_student(string uc_code, Student* student) {
     }
 }
 
+/**
+ * @brief Lê e processa as informações de classes por UC a partir de um arquivo.
+ * @param filename O nome do arquivo que contém as informações.
+ *
+ * Esta função lê as informações das classes de UC (Código da UC e Código da Classe) a partir de um arquivo,
+ * cria objetos UC_Class correspondentes e os armazena no vetor 'uc_classes_'.
+ *
+ * @param n O número de linhas no arquivo de entrada, excluindo a primeira linha de cabeçalho.
+ * @complexity A complexidade de tempo é O(n), onde 'n' é o número de linhas no arquivo de entrada.
+ */
 void DataManip::read_classes_per_uc(string filename) {
 
     string line, ucCode, classCode;
@@ -188,7 +251,16 @@ void DataManip::read_classes(string filename) {
         }
 }
 
-
+/**
+ * @brief Lê e processa as informações das aulas a partir de um arquivo.
+ * @param filename O nome do arquivo que contém as informações.
+ *
+ * Esta função lê as informações das aulas (Código da Classe, Código da UC, Dia da Semana, Hora de Início, Duração e Tipo)
+ * a partir de um arquivo, cria objetos Lesson correspondentes e os associa às UC_Classes existentes no vetor 'uc_classes_'.
+ *
+ * @param n O número de linhas no arquivo de entrada, excluindo a primeira linha de cabeçalho.
+ * @complexity A complexidade de tempo é O(n), onde 'n' é o número de linhas no arquivo de entrada.
+ */
 void DataManip::read_students_classes(string filename) {
 
     string line ,studentName, ucCode, classCode;
@@ -209,7 +281,6 @@ void DataManip::read_students_classes(string filename) {
         }
 
         iss >> word;
-        // Remover espaços em branco ao final da palavra
         word.erase(std::remove_if(word.begin(), word.end(), ::isspace), word.end());
         words.push_back(word);
 
@@ -240,6 +311,16 @@ void DataManip::set_pendent_requests(Request* request) {
     pendent_requests_.push(request);
 }
 
+/**
+ * @brief Processa uma solicitação para sair de uma UC_Class.
+ * @param student Um ponteiro para o objeto Student que deseja sair.
+ * @param uc_code O código da UC da qual o aluno deseja sair.
+ *
+ * Esta função processa uma solicitação para que um aluno saia de uma UC_Class específica. O aluno é removido da UC_Class correspondente.
+ *
+ * @param n O número de UC_Classes no vetor 'uc_classes_'.
+ * @complexity A complexidade de tempo é O(n), onde 'n' é o número de UC_Classes no vetor 'uc_classes_'.
+ */
 void DataManip::leave_ucClass(Student *student, string uc_code) {
     cout << "Leave request" << endl;
     string class_code = found_classCode_student(uc_code, student);
@@ -282,6 +363,18 @@ void DataManip::join_new_ucClass(int student_code, string uc_code_final, string 
     }
 }
 
+/**
+ * @brief Processa uma solicitação para ingressar em uma nova UC_Class.
+ * @param student_code O código do aluno que deseja ingressar na UC_Class.
+ * @param uc_code_final O código da UC da qual o aluno deseja ingressar.
+ * @param final_class_code O código da classe da UC na qual o aluno deseja ingressar.
+ *
+ * Esta função processa uma solicitação para que um aluno ingresse em uma nova UC_Class específica, desde que as condições sejam atendidas. O aluno só pode ingressar em uma nova UC_Class se ele ainda não estiver matriculado em 7 UC_Classes, se o horário da UC_Class não entrar em conflito com o horário do aluno e se a capacidade da UC_Class não estiver cheia.
+ *
+ * @param n O número de UC_Classes no vetor 'uc_classes_'.
+ * @param m O número de aulas na UC_Class especificada.
+ * @complexity A complexidade de tempo é O(n) devido à busca por UC_Classes no vetor 'uc_classes_', onde 'n' é o número de UC_Classes. A complexidade total depende da função 'timetable_overlap', que pode ser O(m * n), onde 'm' é o número de aulas na UC_Class.
+ */
 void DataManip::switch_class(Student *student, string uc_code, string final_class_code) {
     cout << "Switch request:" << endl;
     string initial_class_code = found_classCode_student(uc_code, student);
@@ -331,6 +424,16 @@ void DataManip::switch_class(Student *student, string uc_code, string final_clas
     }
 }
 
+/**
+ * @brief Escreve dados dos alunos e suas matrículas em UC_Classes em um arquivo CSV.
+ * @param filename O nome do arquivo no qual os dados serão escritos.
+ *
+ * Esta função escreve os dados dos alunos, incluindo seus códigos, nomes, códigos de UC e códigos de classe de UC em um arquivo CSV especificado. Cada linha do arquivo representa um aluno matriculado em uma UC_Class.
+ *
+ * @param n O número de alunos no vetor 'students_'.
+ * @param m A média do número de UC_Classes que cada aluno está matriculado.
+ * @complexity A complexidade de tempo é O(n * m), onde 'n' é o número de alunos e 'm' é a média do número de UC_Classes que cada aluno está matriculado.
+ */
 void DataManip::fileWriter(string filename)const{
     ofstream out(filename);
 
@@ -353,7 +456,18 @@ void DataManip::fileWriter(string filename)const{
     }
 
 }
-
+/**
+ * @brief Consulta a ocupação de uma classe UC específica.
+ * @param uc_code O código da UC à qual a classe pertence.
+ * @param class_code O código da classe UC a ser consultada.
+ * @return O número de alunos matriculados na classe UC especificada.
+ *
+ * Esta função consulta o número de alunos matriculados em uma classe UC específica com base nos códigos da UC e da classe UC fornecidos. Ela percorre a lista de alunos e suas matrículas em UC_Classes para contar o número de ocorrências em que a classe UC tem o código especificado.
+ *
+ * @param n O número total de alunos no vetor 'students_'.
+ * @param m A média do número de matrrículas de UC_Classes por aluno.
+ * @complexity A complexidade de tempo é O(n * m), onde 'n' é o número total de alunos e 'm' é a média do número de matrículas de UC_Classes por aluno.
+ */
 int DataManip::consultClass_UcOcupation(string uc_code, string class_code) { //corrigir
 
     vector<Student *> students = students_;
@@ -374,6 +488,19 @@ int DataManip::consultClass_UcOcupation(string uc_code, string class_code) { //c
     return count;
 }
 
+/**
+ * @brief Verifica se há sobreposição de horários para um aluno em relação a uma classe UC final.
+ * @param student O aluno para o qual verificar a sobreposição de horários.
+ * @param uc_class_final A classe UC final que deseja verificar se tem sobreposição de horários com o aluno.
+ * @return Verdadeiro se houver sobreposição de horários, falso caso contrário.
+ *
+ * Esta função verifica se há sobreposição de horários entre a classe UC final e todas as classes UC nas quais o aluno está matriculado. Ela compara os horários das aulas e os dias da semana. Se encontrar qualquer sobreposição, retorna verdadeiro, caso contrário, retorna falso.
+ *
+ * @param n O número total de aulas na classe UC final.
+ * @param m O número total de classes UC em que o aluno está matriculado.
+ * @param p A média do número de aulas por classe UC.
+ * @complexity A complexidade de tempo é O(n * m * p), onde 'n' é o número total de aulas na classe UC final, 'm' é o número total de classes UC em que o aluno está matriculado e 'p' é a média do número de aulas por classe UC.
+ */
 bool DataManip::timetable_overlap(Student *student, UC_Class *uc_class_final) {
 
     vector<Lesson*> lessons_final = uc_class_final->get_lessons();
@@ -399,6 +526,13 @@ bool DataManip::timetable_overlap(Student *student, UC_Class *uc_class_final) {
 
 }
 
+/**
+ * @brief Processa as solicitações pendentes dos alunos.
+ *
+ * Esta função processa as solicitações pendentes na fila de solicitações. Cada solicitação é verificada e tratada com base no seu tipo. Para solicitações do tipo "switch," "join" e "leave," a função chama os métodos correspondentes (e.g., switch_class, join_new_ucClass, leave_ucClass) para efetuar as mudanças apropriadas no registro de matrícula do aluno.
+ *
+ * @complexity A complexidade de tempo depende do número de solicitações pendentes na fila e das operações executadas para cada solicitação. Se houver 'n' solicitações pendentes na fila, a complexidade de tempo pode ser aproximadamente O(n), uma vez que a função processa cada solicitação uma vez.
+ */
 void DataManip::process_pendent_requests() {
 
     while(!pendent_requests_.empty()){
@@ -424,6 +558,13 @@ void DataManip::process_pendent_requests() {
     }
 }
 
+/**
+ * @brief Exibe as solicitações pendentes na fila.
+ *
+ * Esta função exibe as solicitações pendentes na fila de solicitações. Para cada solicitação, mostra informações como o número do aluno, o tipo de solicitação (join, switch, leave), o código da UC e o código da turma, fornecendo uma visão geral das solicitações pendentes.
+ *
+ * @complexity A complexidade de tempo desta função é O(n), onde 'n' é o número de solicitações pendentes na fila. A função itera sobre cada solicitação na fila uma vez para exibir suas informações.
+ */
 void DataManip::ShowPendingRequests() {
     queue<Request*> copyQueue = pendent_requests_;
     cout << "Pending requests: " <<endl;

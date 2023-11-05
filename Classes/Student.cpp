@@ -50,6 +50,14 @@ void Student::print_ucClass_student() {
     cout << " |"<<endl;
 }
 
+/**
+ * @brief Verifica se o estudante está matriculado em uma UC específica.
+ *
+ * @param ucCode O código da UC que se deseja verificar.
+ * @return True se o estudante estiver matriculado na UC, caso contrário, False.
+ *
+ * Complexidade: O(n), onde 'n' é o número de UCs em que o estudante está matriculado.
+ */
 bool Student::isEnrolled(string ucCode){
 
     for (UC_Class *ucclasses: uc_Classes_) {

@@ -12,7 +12,10 @@ private:
     string type_;
 
 public:
+    //construtor
     Request(Student student, string uc_code ,string class_code, string type);
+
+    //getters
     Student get_student();
     string get_uc_code();
     string get_class_code();

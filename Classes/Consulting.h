@@ -18,7 +18,7 @@ private:
 public:
     Consulting(DataManip data);
 
-    vector<pair<vector<Lesson *>, pair<string,string>>> consultStudentSchedule(int student_code);     //sera melhor usar map ou retornar logo o print???
+    vector<pair<vector<Lesson *>, pair<string,string>>> consultStudentSchedule(int student_code);
     vector<pair<vector<Lesson *>, pair<string, string>>> consultClassSchedule(string class_code);
 
     list<Student*> consultStudentYear(char year);

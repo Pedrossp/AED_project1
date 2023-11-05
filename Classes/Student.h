@@ -20,9 +20,12 @@ private:
 
 
 public:
+
+    //construtores
     Student();
     Student(string& studentName, int studentCode);
 
+    //getters
     string const get_name();
     int const get_code();
     vector<UC_Class*> const get_uc_classes();

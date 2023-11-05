@@ -15,9 +15,11 @@ private:
     string Type_;
 
 public:
+    //construtores
     Lesson();
     Lesson(string& Weekday, float& StartHour, float& Duration, string& Type);
 
+    //getters
     string const get_weekday();
     float const get_starthour();
     float const get_duration();
