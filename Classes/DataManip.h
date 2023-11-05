@@ -19,7 +19,6 @@ private:
     vector<UC_Class*> uc_classes_;
     vector<Student*> students_;
     queue<Request*> pendent_requests_;
-    queue<Request*> denied_requests_;
 
 public:
 
@@ -30,7 +29,6 @@ public:
     vector<UC_Class*> get_uc_classes();
     vector<Student*> get_students();
     queue<Request*> get_pendent_requests();
-    queue<Request*> get_denied_request();
 
     void sortStudents_bycode(vector<Student*>);
 
@@ -39,7 +37,6 @@ public:
     string found_classCode_student(string uc_code, Student *student);
 
     void set_pendent_requests(Request* request);
-    void set_denied_request(Request* request);      //refletir se iremos utiliazr
 
     void switch_class(Student *student, string uc_code, string final_class_code);       //mudar par (String class_code, String uc_code)
     void join_new_ucClass(int student_code, string uc_code, string class_code);     //mudar par (String class_code, String uc_code)
@@ -54,6 +51,10 @@ public:
 
 
     void ShowPendingRequests();
+
+    bool found_if_class_code(string class_code);
+
+    bool found_if_uc_code(string uc_code);
 };
 
 

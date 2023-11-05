@@ -4,6 +4,7 @@
 #include <list>
 #include "DataManip.h"
 
+
 class Menu {
 
 private:
@@ -11,7 +12,7 @@ private:
 
 public:
     Menu(DataManip data);
-    int OptionsMenu();
+    char OptionsMenu();
     void run();
 
 
@@ -30,11 +31,10 @@ public:
     void RequestMenu();
 
     void exitProgram() const;
+    void limparTela();
 
     void SwitchMenu(Student *student);
-
     void AddMenu();
-
     void CancelMenu();
 
 

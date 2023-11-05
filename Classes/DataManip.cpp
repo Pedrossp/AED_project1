@@ -24,10 +24,6 @@ queue<Request *> DataManip::get_pendent_requests() {
     return pendent_requests_;
 }
 
-queue<Request *> DataManip::get_denied_request() {
-    return denied_requests_;
-}
-
 void DataManip::sortStudents_bycode(vector<Student *>) {
     sort(students_.begin(), students_.end(), [](Student* student1, Student* student2) {
         return student1->get_code() < student2->get_code();
@@ -77,6 +73,54 @@ Student *DataManip::found_student(int student_code) {
         }
     }
     return nullptr;
+}
+
+bool DataManip::found_if_class_code(string class_code){
+
+    int size = uc_classes_.size();
+    int low =0;
+    int high =size -1;
+
+    while (low <= high){
+        int mid = low + (high - low) / 2;
+
+        if(uc_classes_[mid]->get_classCode() == class_code){
+            return true;
+        }
+        else if (uc_classes_[mid]->get_classCode() < class_code){
+            low = mid + 1;
+        }
+        else{
+            high = mid - 1;
+        }
+    }
+
+    return false;
+
+}
+
+bool DataManip::found_if_uc_code(string uc_code){
+
+    int size = uc_classes_.size();
+    int low =0;
+    int high =size -1;
+
+    while (low <= high){
+        int mid = low + (high - low) / 2;
+
+        if(uc_classes_[mid]->get_ucCode() == uc_code){
+            return true;
+        }
+        else if (uc_classes_[mid]->get_ucCode() < uc_code){
+            low = mid + 1;
+        }
+        else{
+            high = mid - 1;
+        }
+    }
+
+    return false;
+
 }
 
 string DataManip::found_classCode_student(string uc_code, Student* student) {
@@ -210,11 +254,8 @@ void DataManip::set_pendent_requests(Request* request) {
     pendent_requests_.push(request);
 }
 
-void DataManip::set_denied_request(Request* request) {
-    denied_requests_.push(request);
-}
-
 void DataManip::leave_ucClass(Student *student, string uc_code) {
+    cout << "Leave request" << endl;
     string class_code = found_classCode_student(uc_code, student);
     vector<UC_Class *> ucClasses = uc_classes_;
 
@@ -224,48 +265,39 @@ void DataManip::leave_ucClass(Student *student, string uc_code) {
             student->rem(ucClass);
         }
     }
-    cout << "Remove complete..." << endl;
+    cout << "The student " << student->get_name() << " is no longer enrolled in this UC (" << uc_code << ")..." << endl;
 }
 
 void DataManip::join_new_ucClass(int student_code, string uc_code_final, string final_class_code) {
+
+    cout << "Join request:" << endl;
     Student *student1 = found_student(student_code);
     UC_Class *uc_class_final = found_ucclass(uc_code_final, final_class_code);
 
     int i = consultClass_UcOcupation(uc_code_final, final_class_code);
     int count = student1->get_uc_classes().size();
-    student1->print_ucClass_student();
 
     if (count >= 7){
-        cout << "Not possible to join, already in 7 UC..." << endl;
+        cout << "The student " << student1->get_name() << " can not join a new UC, already in 7..." << endl;
 
     }
 
     else if(timetable_overlap(student1, uc_class_final)){
-        cout << "Timetable Overlap" << endl;
-        Request *request = new Request(*student1, uc_code_final,final_class_code, "switch");
-        denied_requests_.push(request);
+        cout << "The student's schedule " << student1->get_name() << " is not compatible with the schedule of this UC (" << uc_code_final << " ," << final_class_code << ")..." << endl;
     }
 
     else if ( i >= 26){
-        cout << "This UC is full..." << endl;
-        Request *request = new Request(*student1, uc_code_final,final_class_code, "switch");
-        denied_requests_.push(request);
+        cout << "The student " << student1->get_name() << " can not join in this class, because it is full..." << endl;
     }
 
     else{
         student1->set_uc_class(uc_class_final);
-        cout << "Join complete...";
+        cout << "The student " << student1->get_name() << " is now in this class (" << final_class_code << ")" <<" at this UC (" << uc_code_final << ")..." << endl;
     }
 }
 
-void DataManip::switch_class(Student *student, string uc_code, string final_class_code) { //fazerrrrr
-    if (!student->isEnrolled(uc_code)){
-        cout << "This student is not enrolled in this UC" << endl;
-        Request *request = new Request(*student, uc_code,final_class_code, "switch");
-        denied_requests_.push(request);
-        return;
-    }
-
+void DataManip::switch_class(Student *student, string uc_code, string final_class_code) {
+    cout << "Switch request:" << endl;
     string initial_class_code = found_classCode_student(uc_code, student);
     UC_Class *uc_class_initial= found_ucclass(uc_code,initial_class_code);
     UC_Class *uc_class_final = found_ucclass(uc_code, final_class_code);
@@ -273,10 +305,8 @@ void DataManip::switch_class(Student *student, string uc_code, string final_clas
     int n_initial = consultClass_UcOcupation(uc_code, initial_class_code);
 
     if (n_final >= 26){
+        cout << "The student " << student->get_name() << " can not switch to this class (" << final_class_code << "), because it is full..." << endl;
 
-        cout << "This UC is full..." << endl;
-        Request *request = new Request(*student, uc_code,final_class_code, "switch");
-        denied_requests_.push(request);
     }
 
 
@@ -284,13 +314,13 @@ void DataManip::switch_class(Student *student, string uc_code, string final_clas
         student->rem(uc_class_initial);
         if (!timetable_overlap(student, uc_class_final)){
             student->set_uc_class(uc_class_final);
+            cout << "The student " << student->get_name() << " is now in this class (" << final_class_code << ")" <<" at this UC (" << uc_code << ")..." << endl;
         }
 
         else{
             student->set_uc_class(uc_class_initial);
-            cout << "Timetable Overlap" << endl;
-            Request *request = new Request(*student, uc_code,final_class_code, "switch");
-            denied_requests_.push(request);
+            cout << "The student's schedule " << student->get_name() << " is not compatible with the schedule of this class (" << final_class_code << ")..." << endl;
+
         }
     }
 
@@ -298,15 +328,18 @@ void DataManip::switch_class(Student *student, string uc_code, string final_clas
         if ((n_final - n_initial) <= 4){
             student->rem(uc_class_initial);
             if (!timetable_overlap(student, uc_class_final)){
-
                 student->set_uc_class(uc_class_final);
+                cout << "The student " << student->get_name() << " is now in this class (" << final_class_code << ")" <<" at this UC (" << uc_code << ")..." << endl;
             }
+
             else{
                 student->set_uc_class(uc_class_final);
-                cout << "Timetable Overlap" << endl;
-                Request *request = new Request(*student, uc_code,final_class_code, "switch");
-                denied_requests_.push(request);
+                cout << "The student's schedule " << student->get_name() << " is not compatible with the schedule of this class (" << final_class_code << ")..." << endl;
+
             }
+        }
+        else{
+            cout << "The student " << student->get_name() << " can not switch to this class (" << final_class_code << "), because the change causes imbalance..." << endl;
         }
 
     }

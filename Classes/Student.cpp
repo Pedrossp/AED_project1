@@ -47,8 +47,7 @@ void Student::print_ucClass_student() {
 
         cout << "| " << ucClass->get_classCode() << " " << ucClass->get_ucCode();
     }
-    cout << " |"<<endl
-    <<endl;
+    cout << " |"<<endl;
 }
 
 bool Student::isEnrolled(string ucCode){
