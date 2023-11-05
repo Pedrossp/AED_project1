@@ -77,26 +77,12 @@ Student *DataManip::found_student(int student_code) {
 
 bool DataManip::found_if_class_code(string class_code){
 
-    int size = uc_classes_.size();
-    int low =0;
-    int high =size -1;
-
-    while (low <= high){
-        int mid = low + (high - low) / 2;
-
-        if(uc_classes_[mid]->get_classCode() == class_code){
+    for (UC_Class* ucClass: uc_classes_){
+        if (ucClass->get_classCode()==class_code){
             return true;
         }
-        else if (uc_classes_[mid]->get_classCode() < class_code){
-            low = mid + 1;
-        }
-        else{
-            high = mid - 1;
-        }
     }
-
     return false;
-
 }
 
 bool DataManip::found_if_uc_code(string uc_code){

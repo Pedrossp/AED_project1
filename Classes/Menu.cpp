@@ -37,8 +37,23 @@ char Menu::OptionsMenu() {
 void Menu::run() {
     data_.read_classes_per_uc("../schedule/classes_per_uc.csv");
     data_.read_classes("../schedule/classes.csv");
-    data_.read_students_classes("../schedule/students_classes.csv");
+    cout << endl << endl
+    << "Which file do you want to read: " << endl << endl
+    << "|1 Default students file            |" << endl
+    << "|2 Updated students file            |" << endl;
+    char option;
+    cin>> option;
+    switch (option) {
+        case ('1') : {
+            data_.read_students_classes("../schedule/students_classes.csv");
+            break;
+        }
+        case('2') : {
+            data_.read_students_classes("../schedule/students_classes_updated.csv");
+            break;
+        }
 
+    }
     while(true){
         char option = OptionsMenu();
         switch (option) {
@@ -330,14 +345,17 @@ void Menu::RequestMenu() {
         switch (option) {
             case (1): {
                 SwitchMenu(student);
+                flag =false;
                 break;
             }
             case (2): {
                 AddMenu(student);
+                flag = false;
                 break;
             }
             case (3): {
                 CancelMenu(student);
+                flag=false;
                 break;
             }
             case (4): {
@@ -582,39 +600,100 @@ void Menu::checkClassSchedule() {
     printClassSchedule(class_code);
 }
 
-void Menu::printStudentSchedule(int student_code) { // METER BONITO
 
-    cout << "Student schedule nº " << student_code << endl; // decidir o q fica aqui (numero, nome ou os dois)
+
+bool compareLessons(Lesson* lhs, Lesson* rhs) {
+    // Comparar primeiro por dia da semana
+    if (lhs->get_weekday() != rhs->get_weekday()) {
+        return lhs->get_weekday() < rhs->get_weekday();
+    }
+    // Em caso de empate no dia da semana, comparar por hora de início
+    return lhs->get_starthour() < rhs->get_starthour();
+}
+
+void Menu::printStudentSchedule(int student_code) {
+    cout << "Student schedule nº " << student_code << endl<<endl;
 
     Consulting* consult = new Consulting(data_);
-    vector<pair<vector<Lesson *>, pair<string, string>>> lessons_uc=consult->consultStudentSchedule(student_code);
+    vector<std::pair<vector<Lesson*>, pair<string, string>>> lessons_uc = consult->consultStudentSchedule(student_code);
 
-    for(pair<vector<Lesson *>, pair<string, string>> lessons: lessons_uc){
+    const vector<string> weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 
-        pair<string, string> pair = lessons.second;
-        for(Lesson *lesson: lessons.first){
+    // Organizar as aulas por dia da semana
+    map<string, vector<Lesson*>> lessonsByDay;
 
-            cout <<lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() << " " << pair.first << " " << pair.second <<"\n";
+    for (const auto& lessons_pair : lessons_uc) {
+        const auto& lessons = lessons_pair.first;
+
+        for (Lesson* lesson : lessons) {
+            lessonsByDay[lesson->get_weekday()].push_back(lesson);
         }
     }
-    delete consult;   //verificar se n da errado
+
+    // Classificar as aulas por dia da semana e hora de início
+    for (auto& day_lessons : lessonsByDay) {
+        auto& lessons = day_lessons.second;
+        sort(lessons.begin(), lessons.end(), compareLessons);
+    }
+
+    // Imprimir as aulas na ordem correta
+    for (const auto& day : weekdays) {
+        auto it = lessonsByDay.find(day);
+
+        if (it != lessonsByDay.end()) {
+            for (Lesson* lesson : it->second) {
+                cout << day << " " << lesson->get_type() << " "
+                          << lesson->get_starthour() << " " << lesson->get_endhour() << " "
+                          << lessons_uc[0].second.first << " " << lessons_uc[0].second.second << "\n";
+            }
+        }
+    }
+
+    delete consult;
 }
+
 
 void Menu::printClassSchedule(string class_code) { // METER BONITO
+    cout << "Class " << class_code << " schedule " << endl<< endl;
+    Consulting* consult = new Consulting(data_);
+    std::vector<std::pair<std::vector<Lesson*>, std::pair<std::string, std::string>>> lessons_uc = consult->consultClassSchedule(class_code);
 
-    Consulting *consult = new Consulting(data_);
-    vector<pair<vector<Lesson *>, pair<string, string>>> lessons_uc =consult->consultClassSchedule(class_code);
+    const std::vector<std::string> weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 
+    // Organizar as aulas por dia da semana
+    std::map<std::string, std::vector<Lesson*>> lessonsByDay;
 
-    for(pair<vector<Lesson *>, pair<string, string>> lessons: lessons_uc){
+    for (const auto& lessons_pair : lessons_uc) {
+        const auto& lessons = lessons_pair.first;
 
-        pair<string, string> pair = lessons.second;
-        for(Lesson *lesson: lessons.first){
-
-            cout << lesson->get_weekday()  << " " << lesson->get_type() << " " << lesson->get_starthour() << " " << lesson->get_endhour() << " " << pair.first << " " << pair.second <<"\n";
+        for (Lesson* lesson : lessons) {
+            lessonsByDay[lesson->get_weekday()].push_back(lesson);
         }
     }
+
+    // Classificar as aulas por dia da semana e hora de início
+    for (auto& day_lessons : lessonsByDay) {
+        auto& lessons = day_lessons.second;
+        std::sort(lessons.begin(), lessons.end(), compareLessons);
+    }
+
+    // Imprimir as aulas na ordem correta
+    for (const auto& day : weekdays) {
+        auto it = lessonsByDay.find(day);
+
+        if (it != lessonsByDay.end()) {
+            for (Lesson* lesson : it->second) {
+                std::cout << day << " " << lesson->get_type() << " "
+                          << lesson->get_starthour() << " " << lesson->get_endhour() << " "
+                          << lessons_uc[0].second.first << " " << lessons_uc[0].second.second << "\n";
+            }
+        }
+    }
+
+    delete consult;
 }
+
+
 
 void Menu::printListStudents(list<Student*> students) {
     for(Student *student : students) {
